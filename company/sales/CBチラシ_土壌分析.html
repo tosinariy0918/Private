@@ -13,11 +13,10 @@
   }
   .page {
     width: 210mm; height: 297mm;
-    padding: 14mm 15mm 12mm;
+    padding: 12mm 14mm 10mm;
     display: flex; flex-direction: column;
     background: #ffffff;
   }
-  /* ---- ヘッダー ---- */
   .brandbar {
     display: flex; justify-content: space-between; align-items: baseline;
     border-bottom: 2px solid #2f7d5b; padding-bottom: 5px;
@@ -25,48 +24,61 @@
   .brand { font-size: 12pt; font-weight: bold; color: #2f7d5b; letter-spacing: .05em; }
   .patent { font-size: 8.5pt; color: #5b6b62; }
 
-  .hero { margin-top: 10mm; text-align: center; }
+  /* ---- ヒーロー：テキスト＋写真 ---- */
+  .hero { margin-top: 7mm; display: flex; gap: 7mm; align-items: center; }
+  .hero .txt { flex: 1.15; }
+  .hero .pic { flex: 1; }
+  .hero .pic img { width: 100%; height: 62mm; object-fit: cover; border-radius: 10px; border: 1px solid #e3ece7; }
+  .hero .pic .cap { font-size: 7.5pt; color: #8a978f; margin-top: 2mm; text-align: center; }
   .eyebrow {
-    display: inline-block; font-size: 10pt; color: #2f7d5b;
-    border: 1px solid #2f7d5b; border-radius: 20px; padding: 3px 14px; margin-bottom: 6mm;
+    display: inline-block; font-size: 9.5pt; color: #2f7d5b;
+    border: 1px solid #2f7d5b; border-radius: 20px; padding: 3px 12px; margin-bottom: 4mm;
   }
-  h1 { font-size: 26pt; line-height: 1.35; color: #14261d; }
+  h1 { font-size: 22pt; line-height: 1.35; color: #14261d; }
   h1 .accent { color: #2f7d5b; }
-  .lead { margin-top: 5mm; font-size: 11pt; color: #3d4a43; line-height: 1.7; }
+  .lead { margin-top: 4mm; font-size: 10pt; color: #3d4a43; line-height: 1.7; }
 
   /* ---- 数値ハイライト ---- */
   .highlight {
-    margin-top: 9mm; background: #f1f7f3; border: 1px solid #cfe3d8; border-radius: 10px;
-    padding: 7mm 6mm 6mm; text-align: center;
+    margin-top: 7mm; background: #f1f7f3; border: 1px solid #cfe3d8; border-radius: 10px;
+    padding: 6mm 6mm 5mm; text-align: center;
   }
-  .highlight .cap { font-size: 9.5pt; color: #5b6b62; }
-  .stats { display: flex; justify-content: center; align-items: stretch; gap: 6mm; margin-top: 5mm; }
+  .highlight .cap { font-size: 9pt; color: #5b6b62; }
+  .stats { display: flex; justify-content: center; align-items: stretch; gap: 5mm; margin-top: 4mm; }
   .stat { flex: 1; }
-  .stat .label { font-size: 9pt; color: #5b6b62; }
-  .stat .row { display: flex; align-items: baseline; justify-content: center; gap: 6px; margin-top: 3px; }
-  .stat .before { font-size: 15pt; color: #b06b5b; text-decoration: line-through; }
-  .stat .arrow { font-size: 12pt; color: #8a978f; }
-  .stat .after { font-size: 24pt; font-weight: bold; color: #2f7d5b; }
-  .stat .note { font-size: 8.5pt; color: #5b6b62; margin-top: 2px; }
+  .stat .label { font-size: 8.5pt; color: #5b6b62; }
+  .stat .row { display: flex; align-items: baseline; justify-content: center; gap: 5px; margin-top: 2px; }
+  .stat .before { font-size: 14pt; color: #b06b5b; text-decoration: line-through; }
+  .stat .arrow { font-size: 11pt; color: #8a978f; }
+  .stat .after { font-size: 22pt; font-weight: bold; color: #2f7d5b; }
+  .stat .note { font-size: 8pt; color: #5b6b62; margin-top: 1px; }
   .stat.mid { border-left: 1px solid #cfe3d8; border-right: 1px solid #cfe3d8; }
+  .soilnote {
+    margin-top: 4mm; font-size: 8pt; color: #6a5b3d; background: #fbf6e9;
+    border: 1px solid #ecd9a8; border-radius: 7px; padding: 3mm 4mm; line-height: 1.6; text-align: left;
+  }
+  .soilnote b { color: #8a6d2a; }
 
   /* ---- 説明3点 ---- */
-  .points { margin-top: 9mm; display: flex; gap: 5mm; }
-  .card { flex: 1; background: #fbfdfc; border: 1px solid #e3ece7; border-radius: 8px; padding: 5mm 4mm; }
-  .card .ico { font-size: 15pt; }
-  .card .t { font-size: 10.5pt; font-weight: bold; color: #14261d; margin: 3mm 0 2mm; }
-  .card .d { font-size: 8.8pt; color: #4c574f; line-height: 1.6; }
+  .points { margin-top: 6mm; display: flex; gap: 4mm; }
+  .card { flex: 1; background: #fbfdfc; border: 1px solid #e3ece7; border-radius: 8px; padding: 4mm 4mm; }
+  .card .ico { font-size: 14pt; }
+  .card .t { font-size: 10pt; font-weight: bold; color: #14261d; margin: 2mm 0 1.5mm; }
+  .card .d { font-size: 8.3pt; color: #4c574f; line-height: 1.55; }
 
-  .measure {
-    margin-top: 8mm; background: #14261d; color: #eaf3ee; border-radius: 8px;
-    padding: 5mm 6mm; font-size: 10pt; line-height: 1.7;
-  }
-  .measure b { color: #8fd7b4; }
+  /* ---- 製品バンド ---- */
+  .product { margin-top: 6mm; display: flex; gap: 5mm; align-items: center;
+    background: #14261d; border-radius: 10px; padding: 4mm 5mm; color: #eaf3ee; }
+  .product img { width: 26mm; height: 26mm; object-fit: cover; border-radius: 8px; border: 2px solid #2f7d5b; }
+  .product .ptxt { flex: 1; }
+  .product .ptxt .pt { font-size: 11pt; font-weight: bold; color: #ffffff; }
+  .product .ptxt .pd { font-size: 8.5pt; color: #b9cfc3; line-height: 1.6; margin-top: 1.5mm; }
+  .product .ptxt .pd b { color: #8fd7b4; }
 
-  .foot { margin-top: auto; padding-top: 6mm; border-top: 1px solid #dfe7e2; display: flex; justify-content: space-between; align-items: flex-end; }
+  .foot { margin-top: auto; padding-top: 5mm; border-top: 1px solid #dfe7e2; display: flex; justify-content: space-between; align-items: flex-end; }
   .foot .co { font-size: 10pt; font-weight: bold; color: #2f7d5b; }
-  .foot .info { font-size: 8.2pt; color: #5b6b62; line-height: 1.6; margin-top: 2px; }
-  .foot .note { font-size: 7pt; color: #9aa79f; max-width: 62mm; text-align: right; line-height: 1.5; }
+  .foot .info { font-size: 8pt; color: #5b6b62; line-height: 1.6; margin-top: 2px; }
+  .foot .note { font-size: 6.8pt; color: #9aa79f; max-width: 60mm; text-align: right; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -77,12 +89,18 @@
     </div>
 
     <div class="hero">
-      <div class="eyebrow">第三者機関の土壌分析レポートより</div>
-      <h1>土の"<span class="accent">免疫力</span>"を、<br>科学が確かめました。</h1>
-      <div class="lead">
-        土に挿す・敷くだけの <b>CBスティック／CBチップ</b>。<br>
-        使った土（CBあり）と使わない土（CBなし）を同じ条件で比較したところ、<br>
-        <b>2回の検証いずれでも、CBありのほうが土の「抑止力」が高い</b>結果となりました。
+      <div class="txt">
+        <div class="eyebrow">第三者機関の土壌分析レポートより</div>
+        <h1>土の"<span class="accent">免疫力</span>"を、<br>科学が確かめました。</h1>
+        <div class="lead">
+          土に挿す・敷くだけの <b>CBスティック／CBチップ</b>。<br>
+          使った土（CBあり）と使わない土（CBなし）を同じ条件で比較したところ、
+          <b>2回の検証いずれでも、CBありのほうが土の「抑止力」が高い</b>結果となりました。
+        </div>
+      </div>
+      <div class="pic">
+        <img src="assets/field1.jpg" alt="CBスティック製品">
+        <div class="cap">CBスティック（観葉植物・プランター用）</div>
       </div>
     </div>
 
@@ -101,9 +119,13 @@
         </div>
         <div class="stat">
           <div class="label">滅菌土の応答</div>
-          <div class="row"><span class="after" style="font-size:20pt;">CBが上</span></div>
+          <div class="row"><span class="after" style="font-size:18pt;">CBが上</span></div>
           <div class="note">0.4158 → 0.4412</div>
         </div>
+      </div>
+      <div class="soilnote">
+        <b>※ 試験条件について：</b>本試験は、<b>トマト栽培後で地力が低下した（痩せた）土壌</b>を用いて実施したため、両区とも総合判定はD〜Eとなっています。
+        その厳しい条件下でも、<b>CBあり区は抑止力が高く、判定の悪化を抑えました。</b>良質な堆肥による土づくりとの併用で、さらなる改善が期待できます。
       </div>
     </div>
 
@@ -125,9 +147,12 @@
       </div>
     </div>
 
-    <div class="measure">
-      <b>「抑止力」とは？</b>　土の中に病原菌などの"外敵"を入れて、土がそれをどれだけ抑え込めるかをセンサーで数値化したもの。
-      数値が高いほど、病気が出にくい"健康な土"であることを意味します。
+    <div class="product">
+      <img src="assets/cb-chip.jpg" alt="CBチップ">
+      <div class="ptxt">
+        <div class="pt">「抑止力」とは？ ── 土の免疫力のこと</div>
+        <div class="pd">土の中に病原菌などの"外敵"を入れ、土がそれをどれだけ抑え込めるかをセンサーで数値化したもの。<b>数値が高いほど、病気が出にくい"健康な土"</b>であることを意味します。</div>
+      </div>
     </div>
 
     <div class="foot">
