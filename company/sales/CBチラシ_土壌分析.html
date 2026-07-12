@@ -8,14 +8,11 @@
   html, body {
     font-family: 'IPAGothic', 'IPAPGothic', sans-serif;
     color: #1f2a24;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
   .page {
-    width: 210mm; height: 297mm;
-    padding: 12mm 14mm 10mm;
-    display: flex; flex-direction: column;
-    background: #ffffff;
+    width: 210mm; height: 297mm; padding: 12mm 14mm 9mm;
+    display: flex; flex-direction: column; background: #ffffff;
   }
   .brandbar {
     display: flex; justify-content: space-between; align-items: baseline;
@@ -24,58 +21,56 @@
   .brand { font-size: 12pt; font-weight: bold; color: #2f7d5b; letter-spacing: .05em; }
   .patent { font-size: 8.5pt; color: #5b6b62; }
 
-  /* ---- ヒーロー：テキスト＋写真 ---- */
-  .hero { margin-top: 7mm; display: flex; gap: 7mm; align-items: center; }
-  .hero .txt { flex: 1.15; }
+  /* ---- ヒーロー：テキスト＋トマトのイメージ ---- */
+  .hero { margin-top: 6mm; display: flex; gap: 7mm; align-items: center; }
+  .hero .txt { flex: 1.25; }
   .hero .pic { flex: 1; }
-  .hero .pic img { width: 100%; height: 62mm; object-fit: cover; border-radius: 10px; border: 1px solid #e3ece7; }
-  .hero .pic .cap { font-size: 7.5pt; color: #8a978f; margin-top: 2mm; text-align: center; }
+  .hero .pic .tomato { width: 100%; height: 52mm; border-radius: 12px;
+    background: radial-gradient(circle at 50% 40%, #fbe9e4 0%, #f3ddd6 100%);
+    border: 1px solid #ecd3cb; display: block; }
+  .hero .pic .cap { font-size: 7.5pt; color: #a99089; margin-top: 1.5mm; text-align: center; }
   .eyebrow {
     display: inline-block; font-size: 9.5pt; color: #2f7d5b;
     border: 1px solid #2f7d5b; border-radius: 20px; padding: 3px 12px; margin-bottom: 4mm;
   }
-  h1 { font-size: 22pt; line-height: 1.35; color: #14261d; }
+  h1 { font-size: 21pt; line-height: 1.35; color: #14261d; }
   h1 .accent { color: #2f7d5b; }
-  .lead { margin-top: 4mm; font-size: 10pt; color: #3d4a43; line-height: 1.7; }
+  .lead { margin-top: 4mm; font-size: 9.5pt; color: #3d4a43; line-height: 1.7; }
 
-  /* ---- 数値ハイライト ---- */
-  .highlight {
-    margin-top: 7mm; background: #f1f7f3; border: 1px solid #cfe3d8; border-radius: 10px;
-    padding: 6mm 6mm 5mm; text-align: center;
-  }
-  .highlight .cap { font-size: 9pt; color: #5b6b62; }
-  .stats { display: flex; justify-content: center; align-items: stretch; gap: 5mm; margin-top: 4mm; }
-  .stat { flex: 1; }
-  .stat .label { font-size: 8.5pt; color: #5b6b62; }
-  .stat .row { display: flex; align-items: baseline; justify-content: center; gap: 5px; margin-top: 2px; }
-  .stat .before { font-size: 14pt; color: #b06b5b; text-decoration: line-through; }
-  .stat .arrow { font-size: 11pt; color: #8a978f; }
-  .stat .after { font-size: 22pt; font-weight: bold; color: #2f7d5b; }
-  .stat .note { font-size: 8pt; color: #5b6b62; margin-top: 1px; }
-  .stat.mid { border-left: 1px solid #cfe3d8; border-right: 1px solid #cfe3d8; }
+  /* ---- グラフブロック ---- */
+  .chartblock { margin-top: 6mm; background: #f1f7f3; border: 1px solid #cfe3d8; border-radius: 10px; padding: 5mm 6mm 4mm; }
+  .chartblock .ctitle { font-size: 10.5pt; font-weight: bold; color: #14261d; }
+  .chartblock .csub { font-size: 8pt; color: #5b6b62; margin-top: 1mm; }
+  .chartrow { display: flex; gap: 5mm; align-items: center; margin-top: 3mm; }
+  .chartrow .chart { flex: 1.3; }
+  .chartrow .chart svg { width: 100%; height: auto; display: block; }
+  .chartrow .side { flex: 1; }
+  .legend { display: flex; gap: 5mm; margin-bottom: 2mm; }
+  .legend .item { display: flex; align-items: center; gap: 5px; font-size: 8.5pt; color: #3d4a43; }
+  .legend .sw { width: 12px; height: 12px; border-radius: 3px; }
   .soilnote {
-    margin-top: 4mm; font-size: 8pt; color: #6a5b3d; background: #fbf6e9;
-    border: 1px solid #ecd9a8; border-radius: 7px; padding: 3mm 4mm; line-height: 1.6; text-align: left;
+    font-size: 8pt; color: #6a5b3d; background: #fbf6e9;
+    border: 1px solid #ecd9a8; border-radius: 7px; padding: 3mm 4mm; line-height: 1.65;
   }
   .soilnote b { color: #8a6d2a; }
 
   /* ---- 説明3点 ---- */
-  .points { margin-top: 6mm; display: flex; gap: 4mm; }
-  .card { flex: 1; background: #fbfdfc; border: 1px solid #e3ece7; border-radius: 8px; padding: 4mm 4mm; }
+  .points { margin-top: 5mm; display: flex; gap: 4mm; }
+  .card { flex: 1; background: #fbfdfc; border: 1px solid #e3ece7; border-radius: 8px; padding: 4mm; }
   .card .ico { font-size: 14pt; }
   .card .t { font-size: 10pt; font-weight: bold; color: #14261d; margin: 2mm 0 1.5mm; }
   .card .d { font-size: 8.3pt; color: #4c574f; line-height: 1.55; }
 
-  /* ---- 製品バンド ---- */
-  .product { margin-top: 6mm; display: flex; gap: 5mm; align-items: center;
+  /* ---- 製品ストリップ ---- */
+  .product { margin-top: 5mm; display: flex; gap: 4mm; align-items: center;
     background: #14261d; border-radius: 10px; padding: 4mm 5mm; color: #eaf3ee; }
-  .product img { width: 26mm; height: 26mm; object-fit: cover; border-radius: 8px; border: 2px solid #2f7d5b; }
-  .product .ptxt { flex: 1; }
-  .product .ptxt .pt { font-size: 11pt; font-weight: bold; color: #ffffff; }
-  .product .ptxt .pd { font-size: 8.5pt; color: #b9cfc3; line-height: 1.6; margin-top: 1.5mm; }
+  .product img { width: 24mm; height: 24mm; object-fit: cover; border-radius: 8px; border: 2px solid #2f7d5b; }
+  .product .ptxt { flex: 1; padding-left: 2mm; }
+  .product .ptxt .pt { font-size: 10.5pt; font-weight: bold; color: #ffffff; }
+  .product .ptxt .pd { font-size: 8.3pt; color: #b9cfc3; line-height: 1.6; margin-top: 1.5mm; }
   .product .ptxt .pd b { color: #8fd7b4; }
 
-  .foot { margin-top: auto; padding-top: 5mm; border-top: 1px solid #dfe7e2; display: flex; justify-content: space-between; align-items: flex-end; }
+  .foot { margin-top: auto; padding-top: 4mm; border-top: 1px solid #dfe7e2; display: flex; justify-content: space-between; align-items: flex-end; }
   .foot .co { font-size: 10pt; font-weight: bold; color: #2f7d5b; }
   .foot .info { font-size: 8pt; color: #5b6b62; line-height: 1.6; margin-top: 2px; }
   .foot .note { font-size: 6.8pt; color: #9aa79f; max-width: 60mm; text-align: right; line-height: 1.5; }
@@ -99,59 +94,97 @@
         </div>
       </div>
       <div class="pic">
-        <img src="assets/field1.jpg" alt="CBスティック製品">
-        <div class="cap">CBスティック（観葉植物・プランター用）</div>
+        <!-- トマトのイメージ（イラスト） -->
+        <svg class="tomato" viewBox="0 0 260 180" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="130" cy="158" rx="86" ry="10" fill="#e4c9c0"/>
+          <!-- 後ろのトマト -->
+          <circle cx="176" cy="104" r="40" fill="#e2543a"/>
+          <circle cx="176" cy="104" r="40" fill="none" stroke="#c8452e" stroke-width="1.5"/>
+          <ellipse cx="163" cy="90" rx="12" ry="8" fill="#ef7a63" opacity="0.6"/>
+          <path d="M176 70 l-7 -9 l6 3 l3 -8 l3 8 l6 -3 l-7 9 z" fill="#3f8f4e"/>
+          <!-- 手前のトマト -->
+          <circle cx="104" cy="112" r="52" fill="#e2543a"/>
+          <circle cx="104" cy="112" r="52" fill="none" stroke="#c8452e" stroke-width="1.5"/>
+          <ellipse cx="86" cy="94" rx="16" ry="11" fill="#ef7a63" opacity="0.6"/>
+          <!-- ヘタ -->
+          <g fill="#3f8f4e">
+            <path d="M104 66 l-6 -12 l6 4 z"/>
+            <path d="M104 66 l6 -12 l-6 4 z"/>
+            <path d="M104 64 l-14 -6 l10 8 z"/>
+            <path d="M104 64 l14 -6 l-10 8 z"/>
+            <path d="M104 66 l0 -14 l4 6 z"/>
+          </g>
+          <circle cx="104" cy="64" r="5" fill="#2f7d3f"/>
+          <!-- 葉 -->
+          <path d="M150 150 q22 -20 46 -14 q-14 22 -46 14 z" fill="#4ca35e"/>
+          <path d="M150 150 q22 -13 40 -12" fill="none" stroke="#3f8f4e" stroke-width="1.2"/>
+        </svg>
+        <div class="pic .cap"><span class="cap">※ トマトはイメージです</span></div>
       </div>
     </div>
 
-    <div class="highlight">
-      <div class="cap">2026年7月4日 SDB研 分析報告書 ／ 同一環境での CBあり vs なし 比較</div>
-      <div class="stats">
-        <div class="stat">
-          <div class="label">土の抑止力（免疫力）</div>
-          <div class="row"><span class="before">7.7</span><span class="arrow">→</span><span class="after">27.6</span></div>
-          <div class="note">CBありは 約3.6倍</div>
+    <div class="chartblock">
+      <div class="ctitle">土の「抑止力（免疫力）」の比較 ― 数値が高いほど、病気に強い土</div>
+      <div class="csub">出典：土壌診断用バイオセンサー研究会（SDB研）分析報告書 2026年6月4日・7月4日のデータより作成</div>
+      <div class="chartrow">
+        <div class="chart">
+          <div class="legend">
+            <div class="item"><span class="sw" style="background:#c85a3c"></span>CBなし（未使用）</div>
+            <div class="item"><span class="sw" style="background:#1a9e5f"></span>CBあり（使用）</div>
+          </div>
+          <svg viewBox="0 0 420 205" xmlns="http://www.w3.org/2000/svg" font-family="IPAGothic, sans-serif">
+            <!-- グリッド線と目盛 -->
+            <g stroke="#d7e5dd" stroke-width="1">
+              <line x1="42" y1="160" x2="410" y2="160"/>
+              <line x1="42" y1="124.75" x2="410" y2="124.75"/>
+              <line x1="42" y1="89.5" x2="410" y2="89.5"/>
+              <line x1="42" y1="54.25" x2="410" y2="54.25"/>
+              <line x1="42" y1="19" x2="410" y2="19"/>
+            </g>
+            <g fill="#8a978f" font-size="10" text-anchor="end">
+              <text x="36" y="163">0</text>
+              <text x="36" y="127.75">10</text>
+              <text x="36" y="92.5">20</text>
+              <text x="36" y="57.25">30</text>
+              <text x="36" y="22">40</text>
+            </g>
+            <!-- グループ1: 2026/6/4 -->
+            <rect x="78"  y="29.9" width="46" height="130.1" rx="3" fill="#c85a3c"/>
+            <rect x="128" y="24.9" width="46" height="135.1" rx="3" fill="#1a9e5f"/>
+            <text x="101" y="24" fill="#14261d" font-size="12" font-weight="bold" text-anchor="middle">36.9</text>
+            <text x="151" y="19" fill="#14261d" font-size="12" font-weight="bold" text-anchor="middle">38.3</text>
+            <text x="126" y="178" fill="#3d4a43" font-size="10.5" text-anchor="middle">2026 / 6 / 4 検証</text>
+            <!-- グループ2: 2026/7/4 -->
+            <rect x="258" y="132.9" width="46" height="27.1" rx="3" fill="#c85a3c"/>
+            <rect x="308" y="62.7"  width="46" height="97.3" rx="3" fill="#1a9e5f"/>
+            <text x="281" y="127" fill="#14261d" font-size="12" font-weight="bold" text-anchor="middle">7.7</text>
+            <text x="331" y="57"  fill="#14261d" font-size="12" font-weight="bold" text-anchor="middle">27.6</text>
+            <text x="306" y="178" fill="#3d4a43" font-size="10.5" text-anchor="middle">2026 / 7 / 4 検証</text>
+            <!-- 7/4の差を強調 -->
+            <text x="331" y="150" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">約3.6倍</text>
+          </svg>
         </div>
-        <div class="stat mid">
-          <div class="label">総合判定</div>
-          <div class="row"><span class="before">E</span><span class="arrow">→</span><span class="after">D</span></div>
-          <div class="note">"危険"域を回避</div>
+        <div class="side">
+          <div class="soilnote">
+            <b>※ 試験条件：</b>本試験は<b>トマト栽培後で地力が低下した（痩せた）土壌</b>で実施したため、両区とも総合判定はD〜Eです。
+            その厳しい条件下でも<b>CBあり区は抑止力が高く、判定の悪化を抑えました。</b>良質な堆肥による土づくりとの併用で、さらなる改善が期待できます。
+          </div>
         </div>
-        <div class="stat">
-          <div class="label">滅菌土の応答</div>
-          <div class="row"><span class="after" style="font-size:18pt;">CBが上</span></div>
-          <div class="note">0.4158 → 0.4412</div>
-        </div>
-      </div>
-      <div class="soilnote">
-        <b>※ 試験条件について：</b>本試験は、<b>トマト栽培後で地力が低下した（痩せた）土壌</b>を用いて実施したため、両区とも総合判定はD〜Eとなっています。
-        その厳しい条件下でも、<b>CBあり区は抑止力が高く、判定の悪化を抑えました。</b>良質な堆肥による土づくりとの併用で、さらなる改善が期待できます。
       </div>
     </div>
 
     <div class="points">
-      <div class="card">
-        <div class="ico">🌱</div>
-        <div class="t">挿すだけ・敷くだけ</div>
-        <div class="d">特別な設備も手間も不要。いまの栽培に足すだけで始められます。</div>
-      </div>
-      <div class="card">
-        <div class="ico">🛡️</div>
-        <div class="t">病気に負けにくい土へ</div>
-        <div class="d">「抑止力」は人でいう免疫力。高いほど病気が出にくい健康な土です。</div>
-      </div>
-      <div class="card">
-        <div class="ico">📄</div>
-        <div class="t">数値で語れる裏づけ</div>
-        <div class="d">勘や経験ではなく、第三者機関のレポートという客観的な根拠があります。</div>
-      </div>
+      <div class="card"><div class="ico">🌱</div><div class="t">挿すだけ・敷くだけ</div><div class="d">特別な設備も手間も不要。いまの栽培に足すだけで始められます。</div></div>
+      <div class="card"><div class="ico">🛡️</div><div class="t">病気に負けにくい土へ</div><div class="d">「抑止力」は人でいう免疫力。高いほど病気が出にくい健康な土です。</div></div>
+      <div class="card"><div class="ico">📄</div><div class="t">数値で語れる裏づけ</div><div class="d">勘や経験ではなく、第三者機関のレポートという客観的な根拠があります。</div></div>
     </div>
 
     <div class="product">
+      <img src="assets/field1.jpg" alt="CBスティック">
       <img src="assets/cb-chip.jpg" alt="CBチップ">
       <div class="ptxt">
-        <div class="pt">「抑止力」とは？ ── 土の免疫力のこと</div>
-        <div class="pd">土の中に病原菌などの"外敵"を入れ、土がそれをどれだけ抑え込めるかをセンサーで数値化したもの。<b>数値が高いほど、病気が出にくい"健康な土"</b>であることを意味します。</div>
+        <div class="pt">CBスティック ／ CBチップ</div>
+        <div class="pd">「抑止力」とは、土に病原菌などの"外敵"を入れ、土がどれだけ抑え込めるかを数値化したもの。<b>数値が高いほど、病気が出にくい"健康な土"</b>です。土に挿す・敷くだけでお使いいただけます。</div>
       </div>
     </div>
 
@@ -162,7 +195,7 @@
         TEL 075-600-0479 ／ e.info@denshi-cb.co.jp ／ https://www.denshi-cb.co.jp</div>
       </div>
       <div class="note">
-        出典：土壌診断用バイオセンサー研究会（SDB研）分析結果報告書 2026年6月4日・7月4日。数値・判定は原本に準拠。
+        出典：SDB研 分析結果報告書 2026年6月4日・7月4日。数値・判定は原本に準拠。
         CB単独で土が万全になるものではなく、良質な堆肥による土づくりとの併用を推奨します。
       </div>
     </div>
