@@ -115,10 +115,9 @@
       <input id="appId" type="password" autocomplete="off" spellcheck="false"
              placeholder="取得済みのアプリケーションIDをここに貼り付け" />
       <button id="toggleId" class="ghost" type="button">表示</button>
-      <button id="saveId" type="button">保存</button>
       <button id="clearId" class="ghost" type="button">クリア</button>
     </div>
-    <div id="idState" class="idstate muted">IDは未保存です。</div>
+    <div id="idState" class="idstate muted">IDを貼り付けたら、下の「河内長野市のデータを取得」を押してください（「保存」操作は不要です）。</div>
 
     <details>
       <summary>詳細設定（統計表ID・地域コード・項目コード）※通常は変更不要 / うまく取れない時に調整</summary>
@@ -209,16 +208,24 @@
       if(v){ appIdEl.value = v; setIdState(true); }
     }catch(e){ /* localStorage不可環境は無視 */ }
   }
-  function setIdState(saved){
+  function setIdState(hasValue){
     var el = $("idState");
-    if(saved){ el.textContent = "IDを保存しました（このブラウザにのみ保存）。"; el.className = "idstate ok"; }
-    else{ el.textContent = "IDは未保存です。"; el.className = "idstate muted"; }
+    if(hasValue){
+      el.textContent = "IDを入力済み。「河内長野市のデータを取得」を押してください。";
+      el.className = "idstate ok";
+    }else{
+      el.textContent = "IDを貼り付けたら、下の「河内長野市のデータを取得」を押してください（「保存」操作は不要です）。";
+      el.className = "idstate muted";
+    }
   }
-  $("saveId").addEventListener("click", function(){
+  // 入力のたびに、そのブラウザにだけ静かに記憶（失敗しても無視。保存操作は不要）
+  appIdEl.addEventListener("input", function(){
     var v = appIdEl.value.trim();
-    if(!v){ showMsg("error", "アプリケーションIDを入力してください。"); return; }
-    try{ localStorage.setItem(LS_KEY, v); setIdState(true); hideMsg(); }
-    catch(e){ showMsg("warn", "このブラウザではIDを保存できませんでした（プライベートモード等）。今回のみ利用します。"); }
+    setIdState(!!v);
+    if(/@/.test(v)){
+      showMsg("warn", "メールアドレスのように見えます。ここに入れるのは e-Stat の「アプリケーションID」（英数字40文字ほどの長い文字列）です。マイページ→API機能でご確認ください。");
+    }else{ hideMsg(); }
+    try{ if(v) localStorage.setItem(LS_KEY, v); }catch(e){}
   });
   $("clearId").addEventListener("click", function(){
     try{ localStorage.removeItem(LS_KEY); }catch(e){}
@@ -320,6 +327,10 @@
   $("fetchBtn").addEventListener("click", function(){
     var appId = appIdEl.value.trim();
     if(!appId){ showMsg("error", "先にe-Stat アプリケーションIDを入力してください。"); return; }
+    if(/@/.test(appId) || appId.length < 20){
+      showMsg("error", "入力された値は「アプリケーションID」ではないようです。メールアドレスやパスワードではなく、e-Statのマイページ→API機能で発行される英数字40文字ほどの長い文字列を貼り付けてください。");
+      return;
+    }
 
     var areaCode = $("areaCode").value.trim();
     var common = { appId: appId, lang: "J", metaGetFlg: "Y", cntGetFlg: "N", cdArea: areaCode };
