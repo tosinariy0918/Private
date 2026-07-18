@@ -29,7 +29,19 @@
   【使用データ（社会・人口統計体系「市区町村データ」基礎データ表）】
     人口・世帯 = statsDataId 0000020201
     自然環境   = statsDataId 0000020202
+    経済基盤   = statsDataId 0000020203 ← フェーズA：産業（農林水産・畜産）
     地域コード = 全国地方公共団体コード（例 河内長野市=27216）
+
+  【産業ブロックの設計（フェーズA）】
+    経済基盤表(0000020203)を cdArea で取得し、cat01 の「項目名」（e-Stat由来）
+    をキーワード判定して 農業/畜産/林業/漁業・水産 に自動振り分けして表示する。
+    ・項目コードを直書きしないため誤ラベルが起きない（名称はAPIの正）。
+    ・確認済み項目コード例：C310201 農家数(販売農家) / C310202 農家数(自給的農家)
+      経済基盤表は 耕地面積・製造品出荷額・事業所数 等も含む（WebSearchで確認）。
+    ・その自治体にデータが無いカテゴリは「データ無し（要確認）」と安全表示。
+      （河内長野市は内陸のため漁業・水産はデータ無しの想定）
+    ・農業産出額は本表に含まれず、別統計「市町村別農業産出額（推計）」の
+      府県別statsDataIdが必要＝将来拡張（要確認）。
 
   【指標と項目コード（cat01）※WebSearchで実在確認済み。年次更新でID・コードが
     変わる可能性があるため「詳細設定」で調整可能に】
@@ -89,6 +101,8 @@
   .grid input{font-size:.85rem;padding:8px 10px}
   .result h2{font-size:1.15rem;margin:0 0 2px}
   .result .place{color:var(--sub);font-size:.85rem;margin-bottom:14px}
+  .result h3.blk{font-size:.95rem;margin:20px 0 2px;padding-bottom:4px;border-bottom:2px solid var(--accent);color:var(--accent)}
+  tr.grp td{background:var(--chip);font-weight:700;font-size:.82rem;color:var(--sub);padding:7px 8px}
   table{width:100%;border-collapse:collapse}
   th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:baseline}
   th{color:var(--sub);font-size:.78rem;font-weight:600}
@@ -160,8 +174,12 @@
           <label for="areaStats">自然環境（面積）の統計表ID</label>
           <input id="areaStats" type="text" value="0000020202" />
         </div>
+        <div>
+          <label for="indStats">経済基盤（産業）の統計表ID</label>
+          <input id="indStats" type="text" value="0000020203" />
+        </div>
         <div class="full">
-          <label for="cats">取得する項目コード（cat01・カンマ区切り）</label>
+          <label for="cats">人口系の取得項目コード（cat01・カンマ区切り）</label>
           <input id="cats" type="text" value="A1101,A7101,A1301,A1302,A1303" />
         </div>
         <div>
@@ -171,7 +189,9 @@
         <div class="full">
           <p class="hint" style="margin:4px 0 0">
             既定は社会・人口統計体系「市区町村データ」基礎データ表。人口・世帯=<code>0000020201</code>、
-            自然環境=<code>0000020202</code>。年次更新でID・コードが変わる場合があります（要確認）。
+            自然環境=<code>0000020202</code>、経済基盤=<code>0000020203</code>。
+            産業ブロックは経済基盤表の項目名（e-Stat由来）で農林水産・畜産を自動抽出します。
+            年次更新でID・コードが変わる場合があります（要確認）。
           </p>
         </div>
       </div>
@@ -189,10 +209,19 @@
   <div id="result" class="card result hidden">
     <h2 id="rName">河内長野市</h2>
     <div class="place" id="rPlace">全国地方公共団体コード 27216</div>
+
+    <h3 class="blk">人口・世帯・年齢構成／地理</h3>
     <table>
       <thead><tr><th>指標</th><th style="text-align:right">値</th><th style="text-align:right">統計年次</th></tr></thead>
       <tbody id="rBody"></tbody>
     </table>
+
+    <h3 class="blk">産業（農林水産・畜産）</h3>
+    <table>
+      <thead><tr><th>指標</th><th style="text-align:right">値</th><th style="text-align:right">統計年次</th></tr></thead>
+      <tbody id="rBodyInd"></tbody>
+    </table>
+
     <div class="source" id="rSource">出典：政府統計の総合窓口（e-Stat）</div>
   </div>
 
@@ -339,14 +368,14 @@
     var sd=root.STATISTICAL_DATA, out={};
     if(!sd||!sd.DATA_INF||!sd.DATA_INF.VALUE) return out;
     var values=sd.DATA_INF.VALUE; if(!Array.isArray(values)) values=[values];
-    var timeLabels={}, catUnits={};
+    var timeLabels={}, catUnits={}, catNames={};
     var cobjs=(sd.CLASS_INF&&sd.CLASS_INF.CLASS_OBJ)?sd.CLASS_INF.CLASS_OBJ:[];
     if(!Array.isArray(cobjs)) cobjs=[cobjs];
     cobjs.forEach(function(obj){
       var cls=obj.CLASS; if(!cls) return; if(!Array.isArray(cls)) cls=[cls];
       cls.forEach(function(c){
         if(obj["@id"]==="time")  timeLabels[c["@code"]]=c["@name"];
-        if(obj["@id"]==="cat01") catUnits[c["@code"]]=c["@unit"];
+        if(obj["@id"]==="cat01"){ catUnits[c["@code"]]=c["@unit"]; catNames[c["@code"]]=c["@name"]; }
       });
     });
     values.forEach(function(v){
@@ -355,7 +384,8 @@
       var t=String(v["@time"]||"");
       var prev=out[cat];
       if(!prev || t.localeCompare(prev._t)>0){
-        out[cat]={ value:v["$"], unit:v["@unit"]||catUnits[cat]||"", timeLabel:timeLabels[v["@time"]]||v["@time"]||"", _t:t };
+        out[cat]={ value:v["$"], unit:v["@unit"]||catUnits[cat]||"",
+                   label:catNames[cat]||"", timeLabel:timeLabels[v["@time"]]||v["@time"]||"", _t:t };
       }
     });
     return out;
@@ -375,23 +405,30 @@
     // 表全体を1回ずつ取得（cat01は絞らず、必要な指標をクライアント側で抽出）
     var popReq  = jsonp(STATS_EP, Object.assign({}, common, { statsDataId:$("popStats").value.trim() }));
     var areaReq = jsonp(STATS_EP, Object.assign({}, common, { statsDataId:$("areaStats").value.trim() }));
+    var indReq  = jsonp(STATS_EP, Object.assign({}, common, { statsDataId:$("indStats").value.trim() }));
 
     showMsg("load","e-Stat から取得しています…");
     this.disabled=true;
 
+    // 人口表を主とし、面積・産業は best-effort（失敗しても他は表示）
     popReq.then(function(popResp){
       var popIdx=buildIndex(popResp, areaCode);
-      return areaReq.then(
-        function(areaResp){ render(areaCode, popIdx, safeIndex(areaResp, areaCode), false); },
-        function(){ render(areaCode, popIdx, {}, true); } // 面積のみ失敗
-      );
+      return Promise.all([
+        areaReq.then(function(r){ return safeIndex(r, areaCode); }, function(){ return {_failed:true}; }),
+        indReq.then(function(r){ return safeIndex(r, areaCode); }, function(){ return {_failed:true}; })
+      ]).then(function(res){
+        render(areaCode, popIdx, res[0], res[1]);
+      });
     }).catch(function(err){ handleError(err); }).then(function(){ $("fetchBtn").disabled=false; });
   });
   function safeIndex(resp, areaCode){ try{ return buildIndex(resp, areaCode); }catch(e){ return {}; } }
 
-  function render(areaCode, popIdx, areaIdx, areaFailed){
+  function render(areaCode, popIdx, areaIdx, indIdx){
     hideMsg();
     $("result").classList.remove("hidden");
+    if(areaIdx && areaIdx._failed) areaIdx={};
+    var indFailed = !!(indIdx && indIdx._failed);
+    if(indFailed) indIdx={};
 
     // 名称（市区町村セレクトの表示名 or 既定）
     var citySel=$("cityStat");
@@ -452,11 +489,46 @@
 
     $("rBody").innerHTML=rows.join("");
 
+    // ---- 産業（農林水産・畜産）ブロック ----
+    // 経済基盤表(indIdx)の cat01「項目名」でカテゴリに自動振り分け（名称はe-Stat由来）
+    var GROUPS=[
+      {title:"農業",       re:/農業|農家|農産|耕地|作付|田畑|水稲|果樹|野菜/},
+      {title:"畜産",       re:/畜産|家畜|飼養|乳用|肉用|豚|鶏|酪農|養鶏|養豚/},
+      {title:"林業",       re:/林業|山林|森林|林産|素材生産/},
+      {title:"漁業・水産", re:/漁業|漁獲|養殖|水産|海面|内水面/}
+    ];
+    var indRows=[];
+    if(indFailed){
+      indRows.push("<tr><td colspan='3' class='na' style='text-align:left'>産業データの取得に失敗しました（要確認：経済基盤の統計表ID）。</td></tr>");
+    }else{
+      var codes=Object.keys(indIdx).sort();
+      var buckets=GROUPS.map(function(){return [];});
+      codes.forEach(function(code){
+        var e=indIdx[code];
+        if(!e || !e.label || !validVal(e.value)) return;
+        for(var g=0; g<GROUPS.length; g++){ if(GROUPS[g].re.test(e.label)){ buckets[g].push(e); break; } }
+      });
+      GROUPS.forEach(function(grp, gi){
+        indRows.push("<tr class='grp'><td colspan='3'>"+esc(grp.title)+"</td></tr>");
+        var list=buckets[gi];
+        if(list.length===0){
+          indRows.push("<tr><td>（"+esc(grp.title)+"関連の指標）</td><td class='na' colspan='2'>データ無し（要確認）</td></tr>");
+        }else{
+          list.forEach(function(e){
+            indRows.push(rowHTML(e.label, fmt(toNum(e.value)), e.unit||"", e.timeLabel));
+            if(e.timeLabel) years.push(e.timeLabel);
+          });
+        }
+      });
+    }
+    $("rBodyInd").innerHTML=indRows.join("");
+
     // 出典（統計年次を集約表示）
     var uy={}; years.forEach(function(y){ uy[y]=1; });
     var yl=Object.keys(uy).join(" / ");
     $("rSource").innerHTML =
-      "出典：政府統計の総合窓口（e-Stat）／社会・人口統計体系「市区町村データ」を加工して作成"
+      "出典：政府統計の総合窓口（e-Stat）／社会・人口統計体系「市区町村データ」"
+      + "（人口・世帯 0000020201／自然環境 0000020202／経済基盤 0000020203）を加工して作成"
       + (yl ? "<br>統計年次：" + yl + "（各指標の年次は右欄参照。割合・密度・km²換算は算出値）" : "");
   }
 
