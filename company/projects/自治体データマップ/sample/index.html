@@ -102,6 +102,8 @@
   .result h2{font-size:1.15rem;margin:0 0 2px}
   .result .place{color:var(--sub);font-size:.85rem;margin-bottom:14px}
   .result h3.blk{font-size:.95rem;margin:20px 0 2px;padding-bottom:4px;border-bottom:2px solid var(--accent);color:var(--accent)}
+  .result h3.blk.sub{margin-top:28px;border-bottom-color:var(--line);color:var(--sub)}
+  .result h3.blk.sub .bghint{font-size:.75rem;font-weight:400;color:var(--sub)}
   tr.grp td{background:var(--chip);font-weight:700;font-size:.82rem;color:var(--sub);padding:7px 8px}
   table{width:100%;border-collapse:collapse}
   th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:baseline}
@@ -142,7 +144,7 @@
 <body>
 <div class="wrap">
   <h1>自治体データマップ ─ 近畿・複数指標版</h1>
-  <p class="lead">e-Stat APIから、近畿7府県の市区町村を選んで人口・世帯・年齢構成・面積・人口密度などを取得します。既定は<strong>河内長野市</strong>。サーバー不要・ブラウザだけで動作します。</p>
+  <p class="lead"><strong>農林水産畜産業・特産品・歴史文化</strong>を主役に、近畿7府県の市区町村を選んで表示します（人口等は背景データ）。既定は<strong>河内長野市</strong>。サーバー不要・ブラウザだけで動作します。</p>
 
   <!-- ① アプリケーションID -->
   <div class="card">
@@ -228,12 +230,6 @@
     <h2 id="rName">河内長野市</h2>
     <div class="place" id="rPlace">全国地方公共団体コード 27216</div>
 
-    <h3 class="blk">人口・世帯・年齢構成／地理</h3>
-    <table>
-      <thead><tr><th>指標</th><th style="text-align:right">値</th><th style="text-align:right">統計年次</th></tr></thead>
-      <tbody id="rBody"></tbody>
-    </table>
-
     <h3 class="blk">産業（農林水産・畜産）</h3>
     <table>
       <thead><tr><th>指標</th><th style="text-align:right">値</th><th style="text-align:right">統計年次</th></tr></thead>
@@ -245,6 +241,12 @@
 
     <h3 class="blk">歴史・文化・風習・祭</h3>
     <div id="rBodyHist" class="prose"><p class="muted">「取得」を押すと表示されます。</p></div>
+
+    <h3 class="blk sub">人口・世帯・年齢構成／地理 <span class="bghint">（背景データ）</span></h3>
+    <table>
+      <thead><tr><th>指標</th><th style="text-align:right">値</th><th style="text-align:right">統計年次</th></tr></thead>
+      <tbody id="rBody"></tbody>
+    </table>
 
     <div class="source" id="rSource">出典：政府統計の総合窓口（e-Stat）</div>
   </div>
