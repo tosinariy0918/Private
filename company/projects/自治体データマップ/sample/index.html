@@ -119,6 +119,20 @@
   .hidden{display:none}
   footer{color:var(--sub);font-size:.75rem;text-align:center;margin-top:20px;line-height:1.6}
   code{background:var(--chip);padding:1px 5px;border-radius:4px;font-size:.82em}
+  .prose{font-size:.92rem;margin-top:8px}
+  .prose p{margin:6px 0}
+  .prose .na{color:var(--warn);font-weight:600}
+  .prose .muted{color:var(--sub)}
+  ul.prodlist{list-style:none;margin:6px 0 0;padding:0;
+    display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+  @media(max-width:560px){ul.prodlist{grid-template-columns:1fr}}
+  ul.prodlist li{padding:5px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+  .tag{display:inline-block;font-size:.68rem;font-weight:700;color:#fff;background:var(--accent);
+    border-radius:6px;padding:1px 6px;margin-right:7px;vertical-align:2px}
+  .tag.ag{background:#2f7d5b}.tag.fo{background:#5b7d2f}
+  .tag.fi{background:#2f6d7d}.tag.lv{background:#8a5a2f}.tag.et{background:#8a8a8a}
+  .wsrc{font-size:.75rem;color:var(--sub);margin-top:10px}
+  .wsrc a{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -222,6 +236,9 @@
       <tbody id="rBodyInd"></tbody>
     </table>
 
+    <h3 class="blk">特産品・名産品（農・林・水産・畜産）</h3>
+    <div id="rBodyProd" class="prose"><p class="muted">「取得」を押すと表示されます。</p></div>
+
     <div class="source" id="rSource">出典：政府統計の総合窓口（e-Stat）</div>
   </div>
 
@@ -239,6 +256,7 @@
 
   var STATS_EP = "https://api.e-stat.go.jp/rest/3.0/app/jsonp/getStatsData";
   var META_EP  = "https://api.e-stat.go.jp/rest/3.0/app/jsonp/getMetaInfo";
+  var WIKI_EP  = "https://ja.wikipedia.org/w/api.php"; // 特産品・歴史等の説明情報（JSONP対応）
   var LS_KEY   = "estat_app_id";
 
   // 近畿7府県（この程度の固定は許容。市区町村はメタから動的取得）
@@ -422,6 +440,9 @@
     showMsg("load","e-Stat から取得しています…");
     this.disabled=true;
 
+    // 特産品（Wikipedia）は統計と独立に並行取得（best-effort）
+    fillProducts(deriveName(areaCode));
+
     // 人口表を主とし、面積・産業は best-effort（失敗しても他は表示）
     popReq.then(function(popResp){
       var popIdx=buildIndex(popResp, areaCode);
@@ -443,10 +464,7 @@
     if(indFailed) indIdx={};
 
     // 名称（市区町村セレクトの表示名 or 既定）
-    var citySel=$("cityStat");
-    var name=(citySel && citySel.value===areaCode && citySel.selectedIndex>=0)
-      ? citySel.options[citySel.selectedIndex].textContent.replace(/（\d+）$/,"").replace("（既定）","")
-      : (areaCode==="27216" ? "河内長野市" : "自治体");
+    var name=deriveName(areaCode) || "自治体";
     $("rName").textContent=name;
     $("rPlace").textContent="全国地方公共団体コード "+areaCode;
 
@@ -556,6 +574,131 @@
     return "<tr><td>"+esc(cleanLabel(label))+"</td><td class='na' colspan='2'>データ無し（要確認）</td></tr>";
   }
   function esc(s){ return String(s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];}); }
+
+  // ===================================================================
+  //  特産品ブロック（日本語版Wikipediaの説明情報を利用）
+  //  ・e-Stat統計表には特産品の記載がないため、別情報源として利用。
+  //  ・JSONP（callback対応）で取得＝サーバー不要・CORS制約を受けない。
+  //  ・出典を明記し、あくまで参考情報として表示する。
+  // ===================================================================
+
+  // 選択中の市区町村名（コード接尾辞・「（既定）」を除去）を返す
+  function deriveName(areaCode){
+    var citySel=$("cityStat");
+    if(citySel && citySel.value===areaCode && citySel.selectedIndex>=0){
+      return citySel.options[citySel.selectedIndex].textContent
+        .replace(/（\d+）$/,"").replace("（既定）","").trim();
+    }
+    return areaCode==="27216" ? "河内長野市" : "";
+  }
+
+  // Wikipedia記事の本文（節見出し付きプレーンテキスト）を1回のJSONPで取得
+  function fetchWiki(title){
+    return jsonp(WIKI_EP, {
+      action:"query", format:"json", prop:"extracts",
+      explaintext:1, exsectionformat:"wiki", redirects:1, titles:title
+    }, 20000).then(function(resp){
+      var pages=resp && resp.query && resp.query.pages;
+      if(!pages) throw new Error("wikiformat");
+      var key=Object.keys(pages)[0];
+      var pg=pages[key];
+      if(!pg || key==="-1" || pg.missing!==undefined) throw new Error("wikimissing");
+      return String(pg.extract||"");
+    });
+  }
+
+  // 本文を節（見出しレベル付き）に分解
+  function splitSections(text){
+    text=String(text||"");
+    var re=/^(=+)\s*(.+?)\s*=+\s*$/gm, m, marks=[];
+    while((m=re.exec(text))!==null){
+      marks.push({ level:m[1].length, title:m[2], start:m.index, bodyFrom:re.lastIndex });
+    }
+    var out=[];
+    out.push({ level:0, title:"", body:(marks.length?text.slice(0,marks[0].start):text).trim() });
+    for(var i=0;i<marks.length;i++){
+      var to=(i+1<marks.length)?marks[i+1].start:text.length;
+      out.push({ level:marks[i].level, title:marks[i].title, body:text.slice(marks[i].bodyFrom,to).trim() });
+    }
+    return out;
+  }
+
+  // 見出しが正規表現に一致する節を、その下位節も含めて連結して返す
+  function pickTree(secs, re){
+    var chunks=[];
+    for(var i=0;i<secs.length;i++){
+      if(secs[i].title && re.test(secs[i].title)){
+        var L=secs[i].level;
+        if(secs[i].body) chunks.push(secs[i].body);
+        for(var j=i+1;j<secs.length && secs[j].level>L; j++){
+          if(secs[j].body) chunks.push((secs[j].title?("【"+secs[j].title+"】\n"):"")+secs[j].body);
+        }
+      }
+    }
+    return chunks.join("\n\n").trim();
+  }
+
+  // 特産品の1行を農/林/水/畜に軽く分類してタグを付ける（判定不能は無タグ）
+  function tagFor(line){
+    var AG=/米|稲|野菜|なす|ナス|茄子|果|みかん|ミカン|柑|ぶどう|ブドウ|葡萄|茶|花き|花卉|苺|いちご|イチゴ|トマト|大豆|小麦|そば|蕎麦|栗|柿|梅|桃|酒|味噌|醤油|漬物|餅|米粉/;
+    var FO=/木|林|材|椎茸|しいたけ|シイタケ|茸|きのこ|キノコ|炭|楊枝|ようじ|竹|割り箸|簾|すだれ|漆|和紙|木工/;
+    var FI=/魚|鮎|あゆ|アユ|海苔|のり|ノリ|牡蠣|かき|カキ|海老|えび|エビ|蟹|かに|カニ|海産|水産|養殖|真珠|鰻|うなぎ|ウナギ|わかめ|昆布|干物|鰹|鮪|鯛|鯖|しらす|ちりめん/;
+    var LV=/牛|豚|鶏|鴨|卵|乳|チーズ|バター|ハム|ソーセージ|肉|畜|ジビエ/;
+    if(FI.test(line)) return "<span class='tag fi'>水産</span>";
+    if(LV.test(line)) return "<span class='tag lv'>畜産</span>";
+    if(FO.test(line)) return "<span class='tag fo'>林産</span>";
+    if(AG.test(line)) return "<span class='tag ag'>農産</span>";
+    return "<span class='tag et'>特産</span>";
+  }
+
+  // 特産品テキストをリスト or 段落として整形
+  function prodHTML(text){
+    var lines=text.split(/\r?\n/)
+      .map(function(s){ return s.replace(/^[・･*\-–—•\s]+/,"").trim(); })
+      .filter(Boolean);
+    var shortCnt=lines.filter(function(l){ return l.length<=40; }).length;
+    var isList = lines.length>=3 && shortCnt >= lines.length*0.6;
+    if(isList){
+      var items=lines.slice(0,48).map(function(l){
+        var head=l.split(/[（(：:—―－\-]/)[0].trim() || l; // タグ判定は名称部分で
+        return "<li>"+tagFor(head)+esc(l)+"</li>";
+      });
+      return "<ul class='prodlist'>"+items.join("")+"</ul>";
+    }
+    var t=(text.length>800)? text.slice(0,800)+"…" : text;
+    var ps=t.split(/\n+/).filter(Boolean).map(function(p){ return "<p>"+esc(p)+"</p>"; });
+    return ps.join("") || "<p class='na'>記載が見つかりませんでした。</p>";
+  }
+
+  function wikiLink(name){
+    var u="https://ja.wikipedia.org/wiki/"+encodeURIComponent(name);
+    return "<div class='wsrc'>出典：ウィキペディア日本語版「"
+      + esc(name) + "」（<a href='"+u+"' target='_blank' rel='noopener'>記事を開く</a>）"
+      + " ／ 内容は参考情報です。CC BY-SA。</div>";
+  }
+
+  // 特産品ブロックを埋める（best-effort。失敗しても統計表示は妨げない）
+  function fillProducts(name){
+    var box=$("rBodyProd");
+    if(!name){ box.innerHTML="<p class='na'>自治体名が特定できませんでした（要確認）。</p>"; return; }
+    box.innerHTML="<p class='muted'>特産品の情報を読み込んでいます…</p>";
+    fetchWiki(name).then(function(extract){
+      var secs=splitSections(extract);
+      var body=pickTree(secs, /特産|名産|名物|物産/);
+      if(!body) body=pickTree(secs, /産業|経済/);
+      if(!body){
+        box.innerHTML="<p class='na'>特産品の記載が見つかりませんでした（要確認）。</p>"+wikiLink(name);
+        return;
+      }
+      box.innerHTML=prodHTML(body)+wikiLink(name);
+    }).catch(function(err){
+      var m=String(err&&err.message||err);
+      var note=(m==="wikimissing")
+        ? "この名称の記事が見つかりませんでした（同名自治体の可能性・要確認）。"
+        : "特産品情報の取得に失敗しました（実ブラウザでお試しください）。";
+      box.innerHTML="<p class='na'>"+esc(note)+"</p>"+wikiLink(name);
+    });
+  }
 
   function handleError(err){
     var m=String(err && err.message || err);
