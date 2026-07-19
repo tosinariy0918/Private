@@ -133,6 +133,10 @@
   .tag.fi{background:#2f6d7d}.tag.lv{background:#8a5a2f}.tag.et{background:#8a8a8a}
   .wsrc{font-size:.75rem;color:var(--sub);margin-top:10px}
   .wsrc a{color:var(--accent)}
+  .histblk{margin:8px 0 12px}
+  .histblk h4.hlbl{font-size:.9rem;margin:10px 0 3px;color:var(--accent);
+    display:inline-block;border-bottom:1px solid var(--accent);padding-bottom:1px}
+  .histblk p{margin:5px 0}
 </style>
 </head>
 <body>
@@ -238,6 +242,9 @@
 
     <h3 class="blk">特産品・名産品（農・林・水産・畜産）</h3>
     <div id="rBodyProd" class="prose"><p class="muted">「取得」を押すと表示されます。</p></div>
+
+    <h3 class="blk">歴史・文化・風習・祭</h3>
+    <div id="rBodyHist" class="prose"><p class="muted">「取得」を押すと表示されます。</p></div>
 
     <div class="source" id="rSource">出典：政府統計の総合窓口（e-Stat）</div>
   </div>
@@ -440,8 +447,8 @@
     showMsg("load","e-Stat から取得しています…");
     this.disabled=true;
 
-    // 特産品（Wikipedia）は統計と独立に並行取得（best-effort）
-    fillProducts(deriveName(areaCode));
+    // 特産品・歴史・文化（Wikipedia）は統計と独立に並行取得（1回でまとめて）
+    fillWiki(deriveName(areaCode));
 
     // 人口表を主とし、面積・産業は best-effort（失敗しても他は表示）
     popReq.then(function(popResp){
@@ -630,9 +637,11 @@
       if(secs[i].title && re.test(secs[i].title)){
         var L=secs[i].level;
         if(secs[i].body) chunks.push(secs[i].body);
-        for(var j=i+1;j<secs.length && secs[j].level>L; j++){
+        var j=i+1;
+        for(; j<secs.length && secs[j].level>L; j++){
           if(secs[j].body) chunks.push((secs[j].title?("【"+secs[j].title+"】\n"):"")+secs[j].body);
         }
+        i=j-1; // この節の配下は消費済み。単独再一致による二重取りを防ぐ
       }
     }
     return chunks.join("\n\n").trim();
@@ -677,26 +686,65 @@
       + " ／ 内容は参考情報です。CC BY-SA。</div>";
   }
 
-  // 特産品ブロックを埋める（best-effort。失敗しても統計表示は妨げない）
-  function fillProducts(name){
-    var box=$("rBodyProd");
-    if(!name){ box.innerHTML="<p class='na'>自治体名が特定できませんでした（要確認）。</p>"; return; }
-    box.innerHTML="<p class='muted'>特産品の情報を読み込んでいます…</p>";
+  // 歴史・文化系の1カテゴリを見出し付きで整形（下位節の【小節】は太字化）
+  function histBlockHTML(label, text){
+    if(!text) return "";
+    var t=(text.length>560)? text.slice(0,560)+"…（続きはWikipediaで）" : text;
+    var ps=t.split(/\n+/).filter(Boolean).map(function(p){
+      var mm=p.match(/^【(.+?)】\s*([\s\S]*)$/);
+      if(mm){ return "<p><strong>"+esc(mm[1])+"：</strong>"+esc(mm[2])+"</p>"; }
+      return "<p>"+esc(p)+"</p>";
+    }).join("");
+    return "<div class='histblk'><h4 class='hlbl'>"+esc(label)+"</h4>"+ps+"</div>";
+  }
+
+  // 特産品ブロックを描画
+  function renderProducts(secs, name, box){
+    var body=pickTree(secs, /特産|名産|名物|物産/);
+    if(!body) body=pickTree(secs, /産業|経済/);
+    if(!body){ box.innerHTML="<p class='na'>特産品の記載が見つかりませんでした（要確認）。</p>"+wikiLink(name); return; }
+    box.innerHTML=prodHTML(body)+wikiLink(name);
+  }
+
+  // 歴史・文化・風習・祭ブロックを描画
+  function renderHistory(secs, name, box){
+    var cats=[
+      {label:"🏯 歴史・沿革",     re:/歴史|沿革|あゆみ/},
+      {label:"🎎 文化・文化財",   re:/文化|文化財|芸能|美術|文学/},
+      {label:"🍚 風習・民俗",     re:/風習|民俗|習俗|方言|ことば/},
+      {label:"🏮 祭・年中行事",   re:/祭|年中行事|催事|行事|神事|イベント/}
+    ];
+    var html="", hit=0;
+    cats.forEach(function(c){
+      var body=pickTree(secs, c.re);
+      if(body){ html+=histBlockHTML(c.label, body); hit++; }
+    });
+    if(!hit){ box.innerHTML="<p class='na'>歴史・文化に関する記載が見つかりませんでした（要確認）。</p>"+wikiLink(name); return; }
+    box.innerHTML=html+wikiLink(name);
+  }
+
+  function wikiErrNote(err){
+    return (String(err&&err.message||err)==="wikimissing")
+      ? "この名称の記事が見つかりませんでした（同名自治体の可能性・要確認）。"
+      : "情報の取得に失敗しました（実ブラウザでお試しください）。";
+  }
+
+  // 特産品＋歴史・文化を1回の取得でまとめて描画（best-effort。統計表示は妨げない）
+  function fillWiki(name){
+    var pBox=$("rBodyProd"), hBox=$("rBodyHist");
+    if(!name){
+      pBox.innerHTML=hBox.innerHTML="<p class='na'>自治体名が特定できませんでした（要確認）。</p>";
+      return;
+    }
+    pBox.innerHTML="<p class='muted'>特産品の情報を読み込んでいます…</p>";
+    hBox.innerHTML="<p class='muted'>歴史・文化の情報を読み込んでいます…</p>";
     fetchWiki(name).then(function(extract){
       var secs=splitSections(extract);
-      var body=pickTree(secs, /特産|名産|名物|物産/);
-      if(!body) body=pickTree(secs, /産業|経済/);
-      if(!body){
-        box.innerHTML="<p class='na'>特産品の記載が見つかりませんでした（要確認）。</p>"+wikiLink(name);
-        return;
-      }
-      box.innerHTML=prodHTML(body)+wikiLink(name);
+      renderProducts(secs, name, pBox);
+      renderHistory(secs, name, hBox);
     }).catch(function(err){
-      var m=String(err&&err.message||err);
-      var note=(m==="wikimissing")
-        ? "この名称の記事が見つかりませんでした（同名自治体の可能性・要確認）。"
-        : "特産品情報の取得に失敗しました（実ブラウザでお試しください）。";
-      box.innerHTML="<p class='na'>"+esc(note)+"</p>"+wikiLink(name);
+      var note="<p class='na'>"+esc(wikiErrNote(err))+"</p>"+wikiLink(name);
+      pBox.innerHTML=note; hBox.innerHTML=note;
     });
   }
 
