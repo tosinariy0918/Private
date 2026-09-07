@@ -13,63 +13,76 @@
   }
   html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   body{ font-family:'IPAPGothic','IPAGothic','WenQuanYi Zen Hei',sans-serif; color:var(--ink); }
-  .slide{
-    position:relative; width:297mm; height:210mm; overflow:hidden;
-    padding:16mm 18mm; page-break-after:always; background:var(--bg);
-    display:flex; flex-direction:column;
-  }
+  .slide{ position:relative; width:297mm; height:210mm; overflow:hidden;
+    padding:15mm 17mm; page-break-after:always; background:var(--bg); display:flex; flex-direction:column; }
   .slide:last-child{ page-break-after:auto; }
   .tag{ display:inline-block; font-size:10.5pt; font-weight:bold; letter-spacing:.05em;
-    padding:2.5mm 5mm; border-radius:999px; color:#fff; }
-  .tag.core{ background:var(--green); }
-  .tag.m3{ background:#2f8f4e; }
-  .tag.m4{ background:var(--blue); }
-  .tag.m5{ background:var(--amber); }
-  .tag.m1{ background:#5a4b8c; }
-  h1.title{ font-size:30pt; line-height:1.25; color:var(--green-d); margin:6mm 0 4mm; }
-  h2{ font-size:22pt; color:var(--green-d); margin-bottom:5mm; display:flex; align-items:center; gap:5mm; }
+    padding:2.2mm 5mm; border-radius:999px; color:#fff; align-self:flex-start;}
+  .tag.core{ background:var(--green); } .tag.m3{ background:#2f8f4e; }
+  .tag.m4{ background:var(--blue); } .tag.m5{ background:var(--amber); } .tag.m1{ background:#5a4b8c; }
+  h1.title{ font-size:27pt; line-height:1.25; color:var(--green-d); margin:5mm 0 4mm; }
   .kicker{ font-size:11pt; color:var(--muted); letter-spacing:.12em; }
-  .lead{ font-size:12.5pt; line-height:1.85; color:var(--ink); }
-  .foot{ position:absolute; left:18mm; right:18mm; bottom:8mm; display:flex;
+  .lead{ font-size:12pt; line-height:1.8; }
+  .foot{ position:absolute; left:17mm; right:17mm; bottom:7mm; display:flex;
     justify-content:space-between; font-size:9pt; color:var(--muted);
-    border-top:1px solid var(--line); padding-top:2.5mm; }
-  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:8mm; }
-  .grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:6mm; }
-  .card{ border:1px solid var(--line); border-radius:3mm; padding:6mm; background:#fbfdfb; }
-  .card h3{ font-size:13pt; color:var(--green-d); margin-bottom:3mm; }
+    border-top:1px solid var(--line); padding-top:2.2mm; }
+  .cols{ display:grid; grid-template-columns:1.15fr .85fr; gap:10mm; flex:1; align-items:center; }
+  .card{ border:1px solid var(--line); border-radius:3mm; padding:5.5mm; background:#fbfdfb; }
+  .card h3{ font-size:12.5pt; color:var(--green-d); margin-bottom:2.5mm; }
   .card.blue h3{ color:var(--blue); } .card.amber h3{ color:var(--amber); }
-  .card p, .card li{ font-size:11pt; line-height:1.7; color:var(--ink); }
-  ul{ margin-left:5mm; } li{ margin-bottom:1.5mm; }
-  .stat{ text-align:center; }
-  .stat .num{ font-size:34pt; font-weight:bold; color:var(--green); line-height:1; }
-  .stat .num.blue{ color:var(--blue); } .stat .num.amber{ color:var(--amber); }
-  .stat .lab{ font-size:10.5pt; color:var(--muted); margin-top:2mm; }
+  .card p, .card li{ font-size:11pt; line-height:1.65; }
+  ul{ margin-left:5mm; } li{ margin-bottom:1.2mm; }
   table{ width:100%; border-collapse:collapse; font-size:10.5pt; }
-  th,td{ border:1px solid var(--line); padding:2.8mm 3.5mm; text-align:left; }
+  th,td{ border:1px solid var(--line); padding:2.6mm 3.2mm; text-align:left; }
   th{ background:var(--green-l); color:var(--green-d); font-weight:bold; }
-  .divider .big{ font-size:16pt; }
-  .toc-row{ display:flex; align-items:center; gap:5mm; padding:3.2mm 0; border-bottom:1px dashed var(--line); font-size:12pt; }
-  .toc-row .n{ width:9mm; height:9mm; border-radius:50%; background:var(--green); color:#fff;
-    display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11pt; flex-shrink:0; }
   .note{ font-size:9pt; color:var(--muted); margin-top:3mm; }
-  .cover{ background:linear-gradient(135deg,#155c33 0%,#1f7a44 55%,#2f8f4e 100%); color:#fff; justify-content:center; }
-  .cover h1{ color:#fff; font-size:40pt; line-height:1.28; }
-  .cover .sub{ font-size:15pt; margin-top:6mm; opacity:.95; line-height:1.7; }
-  .cover .who{ margin-top:14mm; font-size:12pt; opacity:.9; }
+  .illus{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4mm; }
+  .cap{ font-size:9.5pt; color:var(--muted); text-align:center; }
+  .cover{ background:linear-gradient(135deg,#124d2b 0%,#1f7a44 60%,#2f8f4e 100%); color:#fff; justify-content:flex-end; }
+  .cover h1{ color:#fff; font-size:38pt; line-height:1.28; margin-bottom:4mm; }
+  .cover .sub{ font-size:14.5pt; opacity:.95; line-height:1.7; }
+  .cover .who{ margin-top:10mm; font-size:12pt; opacity:.92; }
   .cover .badges span{ display:inline-block; border:1.5px solid rgba(255,255,255,.6);
     border-radius:999px; padding:2mm 5mm; margin:0 2mm 2mm 0; font-size:11pt; }
   .divider{ background:var(--green-d); color:#fff; justify-content:center; }
-  .divider h1{ color:#fff; }
+  .divider h1{ color:#fff; font-size:32pt; }
   .accent-bar{ width:22mm; height:3mm; background:var(--green); border-radius:2mm; margin-bottom:5mm; }
+  .toc-row{ display:flex; align-items:center; gap:4mm; padding:2.8mm 0; border-bottom:1px dashed var(--line); font-size:11.5pt; }
+  .toc-row .n{ width:8.5mm; height:8.5mm; border-radius:50%; background:var(--green); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:10.5pt; flex-shrink:0; }
+  .statline{ display:flex; align-items:baseline; gap:2mm; }
+  .statline .n{ font-size:30pt; font-weight:bold; color:var(--green); }
+  .statline .n.blue{ color:var(--blue);} .statline .n.amber{ color:var(--amber);}
+  .bars{ display:flex; flex-direction:column; gap:3mm; width:100%; }
+  .bar-row{ display:flex; align-items:center; gap:3mm; font-size:10pt; }
+  .bar-row .lb{ width:26mm; text-align:right; color:var(--muted); }
+  .bar-track{ flex:1; background:#eef2ef; border-radius:2mm; height:8mm; position:relative; }
+  .bar-fill{ height:100%; border-radius:2mm; display:flex; align-items:center; justify-content:flex-end;
+    padding-right:2.5mm; color:#fff; font-weight:bold; font-size:10pt; }
 </style>
 </head>
 <body>
 
 <!-- 1. COVER -->
 <section class="slide cover">
-  <div class="badges">
-    <span>農業</span><span>陸上養殖</span><span>畜産</span><span>取引パートナー</span>
-  </div>
+  <svg width="100%" height="70mm" viewBox="0 0 900 210" preserveAspectRatio="xMidYMid meet" style="position:absolute;top:6mm;left:0;opacity:.9;">
+    <!-- sun -->
+    <circle cx="740" cy="60" r="34" fill="#ffe08a" opacity=".9"/>
+    <!-- rolling fields -->
+    <path d="M0 150 Q225 110 450 150 T900 140 L900 210 L0 210 Z" fill="#2f8f4e" opacity=".55"/>
+    <path d="M0 172 Q225 140 450 172 T900 165 L900 210 L0 210 Z" fill="#1f7a44" opacity=".7"/>
+    <!-- crop rows -->
+    <g stroke="#dff3e6" stroke-width="2" opacity=".5">
+      <path d="M60 205 L120 175"/><path d="M140 207 L200 176"/><path d="M220 206 L280 177"/>
+      <path d="M300 206 L360 178"/><path d="M760 205 L820 179"/><path d="M840 206 L890 182"/>
+    </g>
+    <!-- plant sprouts -->
+    <g fill="none" stroke="#eafff2" stroke-width="3" stroke-linecap="round" opacity=".85">
+      <path d="M500 178 v-26"/><path d="M500 160 q-12 -6 -18 -18"/><path d="M500 156 q12 -6 18 -18"/>
+      <path d="M560 182 v-22"/><path d="M560 166 q-10 -5 -15 -15"/><path d="M560 162 q10 -5 15 -15"/>
+    </g>
+  </svg>
+  <div class="badges"><span>農業</span><span>陸上養殖</span><span>畜産</span><span>取引パートナー</span></div>
   <h1>生産現場まるごと提案<br>電子の力で、収穫・生育・環境を変える。</h1>
   <div class="sub">電子CB農法の統合ソリューション<br>― 農業 × 陸上養殖 × 畜産、そして事業パートナーの皆さまへ ―</div>
   <div class="who">電子CB農法株式会社　DENSHI CB NŌHŌ　2026年9月</div>
@@ -77,33 +90,50 @@
 
 <!-- 2. 目次 -->
 <section class="slide">
-  <div class="tag core">本資料の構成</div>
+  <span class="tag core">本資料の構成</span>
   <h1 class="title">目次 ― 共通の土台＋領域別ソリューション</h1>
-  <div class="grid2" style="gap:14mm;">
+  <div class="cols" style="align-items:start;">
     <div>
       <div class="toc-row"><span class="n">1</span>会社概要</div>
       <div class="toc-row"><span class="n">2</span>電子CB農法とは（技術・特許）</div>
       <div class="toc-row"><span class="n">3</span>市場性 ― なぜ今この技術か</div>
       <div class="toc-row"><span class="n">4</span>実証ハイライト（作物）</div>
-    </div>
-    <div>
       <div class="toc-row"><span class="n">5</span>【農業】水田ソリューション</div>
       <div class="toc-row"><span class="n">6</span>【陸上養殖】あまご生育試験</div>
       <div class="toc-row"><span class="n">7</span>【畜産】臭気課題の根本解決</div>
       <div class="toc-row"><span class="n">8</span>【取引先】パートナー制度・お取引</div>
     </div>
+    <div class="illus">
+      <!-- module stack diagram -->
+      <svg width="150" height="180" viewBox="0 0 150 180">
+        <rect x="10" y="8"  width="130" height="26" rx="5" fill="#e8f3ec" stroke="#1f7a44"/>
+        <text x="75" y="25" font-size="12" fill="#155c33" text-anchor="middle" font-family="IPAPGothic">共通コア C1–C5</text>
+        <rect x="10" y="46" width="40" height="46" rx="5" fill="#eaf5ee" stroke="#2f8f4e"/>
+        <text x="30" y="73" font-size="11" fill="#2f8f4e" text-anchor="middle">③農</text>
+        <rect x="55" y="46" width="40" height="46" rx="5" fill="#e7f0f7" stroke="#1c5b8c"/>
+        <text x="75" y="73" font-size="11" fill="#1c5b8c" text-anchor="middle">④養</text>
+        <rect x="100" y="46" width="40" height="46" rx="5" fill="#f7efe0" stroke="#c8811a"/>
+        <text x="120" y="73" font-size="11" fill="#c8811a" text-anchor="middle">⑤畜</text>
+        <rect x="10" y="104" width="130" height="26" rx="5" fill="#efeaf6" stroke="#5a4b8c"/>
+        <text x="75" y="121" font-size="12" fill="#5a4b8c" text-anchor="middle" font-family="IPAPGothic">① お取引 M1</text>
+        <path d="M75 134 v14" stroke="#5c6b64" stroke-width="2" marker-end="url(#ar)"/>
+        <rect x="18" y="150" width="114" height="24" rx="12" fill="#1f7a44"/>
+        <text x="75" y="166" font-size="11" fill="#fff" text-anchor="middle" font-family="IPAPGothic">対象別の1本に</text>
+        <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5c6b64"/></marker></defs>
+      </svg>
+      <div class="cap">部品を束ねて1本に</div>
+    </div>
   </div>
-  <p class="note">※ 本資料は「共通コア（1〜4）」＋「領域別モジュール（5〜7）」＋「お取引（8）」を束ねた構成です。対象に応じて章を差し替え・追加できます。</p>
+  <p class="note">※「共通コア(1〜4)」＋「領域別モジュール(5〜7)」＋「お取引(8)」を束ねた構成。対象に応じて章を差し替え・追加できます。</p>
   <div class="foot"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 2</span></div>
 </section>
 
-<!-- 3. 会社概要 (C1) -->
+<!-- 3. 会社概要 -->
 <section class="slide">
-  <div class="tag core">共通コア C1</div>
+  <span class="tag core">共通コア C1</span>
   <h1 class="title">会社概要</h1>
-  <div class="grid2">
+  <div class="cols">
     <div class="card">
-      <h3>会社情報</h3>
       <table>
         <tr><th>会社名</th><td>電子CB農法株式会社</td></tr>
         <tr><th>設立</th><td>2025年7月1日</td></tr>
@@ -111,94 +141,163 @@
         <tr><th>所在地</th><td>京都市東山区祇園町北側340 マルトー17ビル501</td></tr>
         <tr><th>連絡先</th><td>TEL 075-600-0479 ／ denshi-cb.co.jp</td></tr>
       </table>
+      <p style="margin-top:4mm;font-size:13pt;color:var(--green-d);font-weight:bold;">「電子の力でイノベーションを起こす」</p>
+      <p style="margin-top:2mm;">化学肥料・農薬に頼らずとも、豊かな収穫と“儲かる農業”を実現。農家の笑顔を守り、次世代へ。日本から世界へ。</p>
     </div>
-    <div class="card">
-      <h3>ビジョン</h3>
-      <p style="font-size:14pt;color:var(--green-d);font-weight:bold;line-height:1.6;">「電子の力でイノベーションを起こす」</p>
-      <p style="margin-top:3mm;">化学肥料・農薬に頼らずとも、豊かな収穫と“儲かる農業”を実現する。農家の笑顔を守り、離農を食い止め、次世代へ続く持続可能な農業へ。日本から世界へ。</p>
+    <div class="illus">
+      <svg width="160" height="150" viewBox="0 0 160 150">
+        <circle cx="80" cy="70" r="60" fill="#e8f3ec"/>
+        <!-- hand holding sprout -->
+        <path d="M40 118 q40 22 80 0" fill="none" stroke="#1f7a44" stroke-width="5" stroke-linecap="round"/>
+        <path d="M80 108 v-40" stroke="#2f8f4e" stroke-width="5" stroke-linecap="round"/>
+        <path d="M80 84 q-20 -6 -30 -26 q22 2 30 20" fill="#2f8f4e"/>
+        <path d="M80 78 q20 -6 30 -26 q-22 2 -30 20" fill="#3aa15c"/>
+        <circle cx="120" cy="34" r="13" fill="#ffd76a"/>
+      </svg>
+      <div class="cap">持続可能で“儲かる”農業を、日本から。</div>
     </div>
   </div>
   <div class="foot"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 3</span></div>
 </section>
 
-<!-- 4. 技術 (C2) -->
+<!-- 4. 技術 -->
 <section class="slide">
-  <div class="tag core">共通コア C2</div>
+  <span class="tag core">共通コア C2</span>
   <h1 class="title">電子CB農法とは ― 2つの特許技術</h1>
-  <p class="lead" style="margin-bottom:5mm;">土壌の<strong>酸化還元電位を下げ</strong>、土壌・微生物・水分を還元することで、自然や植物が本来もつ力を引き出す農法。約80年前の『静電三法（楢崎皐月）』の理論を応用しています。</p>
-  <div class="grid2">
-    <div class="card">
-      <h3>① CBスティック／CBチップ（小型・無電源）</h3>
-      <p>土壌に挿すだけ。低コストで、農薬・肥料の低減、栽培期間短縮、品質向上、収量増加を実現。</p>
-      <p class="note">特許番号 7444353（徐放性電子放出）</p>
+  <p class="lead" style="margin-bottom:4mm;">土壌の<strong>酸化還元電位を下げ</strong>、土壌・微生物・水分を還元し、植物本来の力を引き出す農法。約80年前の『静電三法（楢崎皐月）』を応用。</p>
+  <div class="cols" style="align-items:stretch;">
+    <div style="display:flex;flex-direction:column;gap:4mm;">
+      <div class="card"><h3>① CBスティック／CBチップ（小型・無電源）</h3>
+        <p>土壌に挿すだけ。低コストで農薬・肥料低減、栽培期間短縮、品質向上、収量増加。<span class="note">特許 7444353</span></p></div>
+      <div class="card blue"><h3>② イオン化電子発生装置（大型・有電源）</h3>
+        <p>空間・土壌還元で高効果。病害虫・ウイルス抑制。<strong>陸上養殖・畜産へ応用可能</strong>。<span class="note">特許 6579600</span></p></div>
     </div>
-    <div class="card blue">
-      <h3>② イオン化電子発生装置（大型・有電源）</h3>
-      <p>空間還元・土壌還元による高い効果。病害虫・ウイルス抑制、品質・収量の飛躍的向上。ハウス・大規模農業から<strong>陸上養殖・畜産</strong>へ応用可能。</p>
-      <p class="note">特許番号 6579600（徐放性電子放出）</p>
+    <div class="illus">
+      <svg width="180" height="160" viewBox="0 0 180 160">
+        <!-- soil -->
+        <rect x="0" y="110" width="180" height="50" fill="#c9a06a" opacity=".5"/>
+        <rect x="0" y="110" width="180" height="8" fill="#8a5a2b" opacity=".5"/>
+        <!-- CB stick -->
+        <rect x="42" y="40" width="10" height="80" rx="2" fill="#2f8f4e"/>
+        <rect x="42" y="86" width="10" height="30" rx="1" fill="#9aa7ad"/>
+        <!-- electron waves -->
+        <g fill="none" stroke="#1f7a44" stroke-width="2" opacity=".7">
+          <path d="M60 70 q16 -8 0 -16"/><path d="M66 78 q22 -11 0 -22"/><path d="M72 86 q28 -14 0 -28"/>
+        </g>
+        <!-- plant thriving -->
+        <path d="M120 120 v-46" stroke="#1f7a44" stroke-width="5" stroke-linecap="round"/>
+        <path d="M120 92 q-18 -6 -26 -24 q20 2 26 18" fill="#2f8f4e"/>
+        <path d="M120 84 q18 -6 26 -24 q-20 2 -26 18" fill="#3aa15c"/>
+        <circle cx="120" cy="66" r="6" fill="#e05c5c"/>
+        <text x="90" y="150" font-size="10" fill="#5c6b64" text-anchor="middle" font-family="IPAPGothic">挿すだけ → 電子還元</text>
+      </svg>
+      <div class="cap">農業 → 水環境 → 畜産へ横展開</div>
     </div>
   </div>
-  <p class="note">※本技術は「農業→水環境→畜産・発酵」へ横展開できる点が特長です。本資料の農業・養殖・畜産は、いずれもこの共通技術の応用です。</p>
   <div class="foot"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 4</span></div>
 </section>
 
-<!-- 5. 市場性 (C2) -->
+<!-- 5. 市場性 -->
 <section class="slide">
-  <div class="tag core">共通コア C2</div>
+  <span class="tag core">共通コア C2</span>
   <h1 class="title">市場性 ― なぜ今、この技術か</h1>
-  <div class="grid3" style="margin-bottom:7mm;">
-    <div class="stat"><div class="num">38%</div><div class="lab">日本の食料自給率（2024年度）<br>先進国で最低水準</div></div>
-    <div class="stat"><div class="num blue">25%</div><div class="lab">みどりの食料システム戦略の<br>有機農業目標（現状0.6%→約40倍）</div></div>
-    <div class="stat"><div class="num amber">5,154<span style="font-size:16pt;">億円</span></div><div class="lab">農薬関連の国内市場規模<br>（2030年予測）</div></div>
-  </div>
-  <div class="card">
-    <h3>電子CB農法が寄与する領域（＝みどり戦略のど真ん中）</h3>
-    <p>土壌還元・活性化／微生物活性化／化学農薬・化学肥料の低減／環境負荷低減／収量拡大／栽培期間短縮／有機対応</p>
+  <div class="cols">
+    <div>
+      <div class="card" style="margin-bottom:4mm;"><h3>日本の食料自給率は先進国で最低水準</h3>
+        <div class="bars">
+          <div class="bar-row"><span class="lb">アメリカ</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#9aa7ad;">100%+</div></div></div>
+          <div class="bar-row"><span class="lb">フランス</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#9aa7ad;">120%+</div></div></div>
+          <div class="bar-row"><span class="lb">ドイツ</span><div class="bar-track"><div class="bar-fill" style="width:80%;background:#9aa7ad;">80%</div></div></div>
+          <div class="bar-row"><span class="lb">日本</span><div class="bar-track"><div class="bar-fill" style="width:38%;background:#c8811a;">38%</div></div></div>
+        </div>
+      </div>
+      <div class="card"><h3>みどりの食料システム戦略のど真ん中</h3>
+        <p>有機農業を <strong>0.6%→25%（約40倍）</strong>へ。土壌還元・微生物活性化・化学農薬/肥料の低減・収量拡大・栽培期間短縮・有機対応。</p></div>
+    </div>
+    <div class="illus">
+      <div class="statline"><span class="n amber">5,154</span><span style="font-size:14pt;color:var(--amber);font-weight:bold;">億円</span></div>
+      <div class="cap" style="font-size:11pt;">農薬関連の国内市場規模<br>（2030年予測）</div>
+      <svg width="150" height="90" viewBox="0 0 150 90" style="margin-top:2mm;">
+        <line x1="20" y1="78" x2="140" y2="78" stroke="#d5ddd8"/>
+        <rect x="34" y="44" width="30" height="34" fill="#1f7a44"/>
+        <rect x="96" y="20" width="30" height="58" fill="#2f8f4e"/>
+        <text x="49" y="90" font-size="9" fill="#5c6b64" text-anchor="middle">現在</text>
+        <text x="111" y="90" font-size="9" fill="#5c6b64" text-anchor="middle">2030</text>
+        <path d="M64 44 L96 22" stroke="#c8811a" stroke-width="2" marker-end="url(#up)"/>
+        <defs><marker id="up" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#c8811a"/></marker></defs>
+      </svg>
+      <div class="cap">市場は拡大基調</div>
+    </div>
   </div>
   <div class="foot"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 5</span></div>
 </section>
 
-<!-- 6. 実証ハイライト (C4) -->
+<!-- 6. 実証ハイライト -->
 <section class="slide">
-  <div class="tag core">共通コア C4</div>
+  <span class="tag core">共通コア C4</span>
   <h1 class="title">実証ハイライト（作物）</h1>
-  <div class="grid2" style="gap:6mm;">
-    <div class="card"><h3>カボチャ（鹿児島）</h3><p><strong>+75%増収</strong>（2,000個→3,500個／330坪）。「30年で初めての勢い」</p></div>
-    <div class="card"><h3>トマト（宮崎）</h3><p>生産量<strong>2倍以上</strong>。ミニトマトが全て「LLL」サイズに肥大化。</p></div>
-    <div class="card"><h3>マンゴー</h3><p>糖度<strong>+43%</strong>（13.0度→18.7度）。高単価ブランドへ。</p></div>
-    <div class="card"><h3>連作障害の克服（大分・田中農園）</h3><p>30%枯死 → 導入後、枯れは数千本中2〜3本のみ。</p></div>
+  <div class="cols">
+    <div class="card">
+      <h3>電子導入による変化（実証現場）</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="lb">カボチャ 増収</span><div class="bar-track"><div class="bar-fill" style="width:75%;background:#1f7a44;">+75%</div></div></div>
+        <div class="bar-row"><span class="lb">トマト 生産量</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#2f8f4e;">2倍+</div></div></div>
+        <div class="bar-row"><span class="lb">マンゴー 糖度</span><div class="bar-track"><div class="bar-fill" style="width:43%;background:#c8811a;">+43%</div></div></div>
+      </div>
+      <p class="note">連作障害の克服（大分・田中農園）：30%枯死 → 導入後、枯れは数千本中2〜3本のみ。</p>
+      <p class="note">※数値はメーカー・実証現場調べ。条件により差が生じます。</p>
+    </div>
+    <div class="illus">
+      <svg width="170" height="150" viewBox="0 0 170 150">
+        <!-- three produce icons -->
+        <g><circle cx="42" cy="50" r="24" fill="#e79a2b"/><path d="M42 26 q6 -8 12 -6" fill="none" stroke="#2f8f4e" stroke-width="3"/><text x="42" y="90" font-size="9" fill="#5c6b64" text-anchor="middle" font-family="IPAPGothic">カボチャ</text></g>
+        <g><circle cx="100" cy="46" r="16" fill="#e05c5c"/><circle cx="118" cy="52" r="12" fill="#e05c5c"/><path d="M100 30 l4 -8" stroke="#2f8f4e" stroke-width="3"/><text x="108" y="90" font-size="9" fill="#5c6b64" text-anchor="middle" font-family="IPAPGothic">トマト</text></g>
+        <g><ellipse cx="140" cy="118" rx="22" ry="16" fill="#f0b429"/><path d="M140 102 q4 -6 10 -6" fill="none" stroke="#2f8f4e" stroke-width="3"/><text x="140" y="146" font-size="9" fill="#5c6b64" text-anchor="middle" font-family="IPAPGothic">マンゴー</text></g>
+        <g><path d="M30 120 v-24" stroke="#1f7a44" stroke-width="4" stroke-linecap="round"/><path d="M30 104 q-12 -4 -18 -16 q14 1 18 12" fill="#2f8f4e"/><text x="30" y="146" font-size="9" fill="#5c6b64" text-anchor="middle" font-family="IPAPGothic">強い生育</text></g>
+      </svg>
+      <div class="cap">収量・品質・生命力の向上</div>
+    </div>
   </div>
-  <p class="note">※ 数値はメーカー・実証現場調べ。条件により差が生じます。</p>
   <div class="foot"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 6</span></div>
 </section>
 
 <!-- 7. 領域別 扉 -->
 <section class="slide divider">
   <div class="accent-bar" style="background:#fff;"></div>
-  <h1 class="title" style="font-size:34pt;">領域別ソリューション</h1>
-  <p class="big">③ 農業（水田）　／　④ 陸上養殖（あまご）　／　⑤ 畜産（臭気）</p>
-  <p style="margin-top:8mm;opacity:.9;font-size:12pt;">共通の電子還元技術を、それぞれの現場に最適化してご提案します。</p>
+  <h1 class="title" style="color:#fff;">領域別ソリューション</h1>
+  <p style="font-size:15pt;">③ 農業（水田）　／　④ 陸上養殖（あまご）　／　⑤ 畜産（臭気）</p>
+  <svg width="70%" height="60mm" viewBox="0 0 700 150" style="margin-top:8mm;">
+    <!-- rice -->
+    <g transform="translate(60,20)"><rect x="0" y="90" width="150" height="40" fill="#2f8f4e" opacity=".5"/><g stroke="#eafff2" stroke-width="4" stroke-linecap="round"><path d="M30 90 v-40"/><path d="M60 90 v-52"/><path d="M90 90 v-46"/><path d="M120 90 v-54"/></g><text x="75" y="122" font-size="15" fill="#eafff2" text-anchor="middle" font-family="IPAPGothic">農業</text></g>
+    <!-- fish -->
+    <g transform="translate(275,30)"><ellipse cx="75" cy="60" rx="52" ry="26" fill="#7fb8e0"/><path d="M127 60 l26 -18 v36 z" fill="#7fb8e0"/><circle cx="52" cy="54" r="4" fill="#124d2b"/><text x="75" y="118" font-size="15" fill="#eafff2" text-anchor="middle" font-family="IPAPGothic">陸上養殖</text></g>
+    <!-- cow -->
+    <g transform="translate(500,26)"><ellipse cx="80" cy="66" rx="46" ry="30" fill="#f0e6d2"/><circle cx="44" cy="52" r="16" fill="#f0e6d2"/><rect x="60" y="92" width="6" height="20" fill="#cbb894"/><rect x="94" y="92" width="6" height="20" fill="#cbb894"/><circle cx="40" cy="50" r="3" fill="#5c4a2e"/><text x="80" y="126" font-size="15" fill="#eafff2" text-anchor="middle" font-family="IPAPGothic">畜産</text></g>
+  </svg>
   <div class="foot" style="border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.85);"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 7</span></div>
 </section>
 
 <!-- 8. 農業 M3 -->
 <section class="slide">
-  <div class="tag m3">③ 農業モジュール M3</div>
+  <span class="tag m3">③ 農業モジュール M3</span>
   <h1 class="title">水田ソリューション ― CBチップ 3.0(A)</h1>
-  <div class="grid2">
-    <div class="card">
-      <h3>使い方はシンプル</h3>
-      <ul>
-        <li>畦（あぜ）沿いに <strong>5m間隔</strong>で挿すだけ</li>
-        <li>金属チップが水に浸かる深さまで／内側へ向ける</li>
-        <li>工具・事前準備・電源・薬剤は不要</li>
-        <li>稲刈り前の落水期に抜き取り・回収</li>
-      </ul>
+  <div class="cols">
+    <div>
+      <div class="card" style="margin-bottom:4mm;"><h3>使い方はシンプル</h3>
+        <ul><li>畦沿いに <strong>5m間隔</strong>で挿すだけ</li><li>金属チップが水に浸かる深さ／内側へ向ける</li><li>工具・電源・薬剤は不要／落水期に回収</li></ul></div>
+      <div class="card"><h3>実証：ブラインド試食会2025</h3>
+        <p>無農薬・無施肥、炊飯器・器まで同一条件。全項目でCB米が支持。</p></div>
     </div>
-    <div class="card">
-      <h3>実証：ブラインド試食会 2025</h3>
-      <div class="stat" style="margin:2mm 0 3mm;"><div class="num">47<span style="font-size:16pt;">/52名</span></div><div class="lab">がCB米に良い評価（<strong>90%</strong>）</div></div>
-      <p>無農薬・無施肥、炊飯器・器まで同一条件のブラインド。温かいご飯で見た目81%・食感80%等、全項目でCB米支持。</p>
+    <div class="illus">
+      <!-- donut 90% -->
+      <svg width="150" height="150" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="15.9" fill="none" stroke="#eef2ef" stroke-width="6"/>
+        <circle cx="21" cy="21" r="15.9" fill="none" stroke="#2f8f4e" stroke-width="6"
+          stroke-dasharray="90 100" stroke-dashoffset="25" transform="rotate(-90 21 21)"/>
+        <text x="21" y="20" font-size="9" fill="#155c33" text-anchor="middle" font-weight="bold">90%</text>
+        <text x="21" y="27" font-size="3.4" fill="#5c6b64" text-anchor="middle" font-family="IPAPGothic">47 / 52名</text>
+      </svg>
+      <div class="cap">がCB米に良い評価<br>（見た目81%・食感80% 等）</div>
     </div>
   </div>
   <p class="note">参加者の声：「艶がキラキラ」「もっちり粘りがある」「冷めても香る」「自然な甘み」</p>
@@ -207,37 +306,77 @@
 
 <!-- 9. 陸上養殖 M4 -->
 <section class="slide">
-  <div class="tag m4">④ 陸上養殖モジュール M4</div>
+  <span class="tag m4">④ 陸上養殖モジュール M4</span>
   <h1 class="title">陸上養殖 ― あまご稚魚 生育比較試験</h1>
-  <p class="lead" style="margin-bottom:4mm;">京都市右京区京北／上桂川漁業協同組合 あまご養殖場にて、CBチップ投入水槽と通常水槽を並行飼育し比較。</p>
-  <div class="grid3">
-    <div class="card blue"><div class="stat"><div class="num blue">+35%</div><div class="lab">体重（投入後 約2週間）<br>100g→135g／2尾</div></div></div>
-    <div class="card blue"><div class="stat"><div class="num blue">+20%</div><div class="lab">体長（約2ヶ月・放流前）<br>22–23cm→27cm</div></div></div>
-    <div class="card blue"><div class="stat"><div class="num blue">水質<br>向上</div><div class="lab">透明度が高く<br>水底の小石まで明瞭</div></div></div>
+  <p class="lead" style="margin-bottom:3mm;">京都市右京区京北／上桂川漁業協同組合 あまご養殖場にて、CBチップ投入水槽と通常水槽を並行飼育し比較。</p>
+  <div class="cols">
+    <div>
+      <div class="card blue" style="margin-bottom:4mm;"><h3>体重（投入後 約2週間・2尾）</h3>
+        <div class="bars">
+          <div class="bar-row"><span class="lb">CB なし</span><div class="bar-track"><div class="bar-fill" style="width:74%;background:#9aa7ad;">100g</div></div></div>
+          <div class="bar-row"><span class="lb">CB あり</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1c5b8c;">135g（+35%）</div></div></div>
+        </div>
+      </div>
+      <div class="card blue"><h3>体長（約2ヶ月・放流前）</h3>
+        <div class="bars">
+          <div class="bar-row"><span class="lb">CB なし</span><div class="bar-track"><div class="bar-fill" style="width:83%;background:#9aa7ad;">22–23cm</div></div></div>
+          <div class="bar-row"><span class="lb">CB あり</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1c5b8c;">27cm（+20%）</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="illus">
+      <svg width="180" height="140" viewBox="0 0 180 140">
+        <rect x="0" y="20" width="180" height="100" rx="6" fill="#dceefb"/>
+        <path d="M0 40 q90 12 180 0" stroke="#bcdcf3" stroke-width="2" fill="none"/>
+        <g><ellipse cx="70" cy="70" rx="34" ry="17" fill="#4f93c4"/><path d="M104 70 l18 -12 v24 z" fill="#4f93c4"/><circle cx="52" cy="65" r="3" fill="#0d2f47"/>
+          <circle cx="66" cy="66" r="2.5" fill="#e05c5c"/><circle cx="76" cy="70" r="2.5" fill="#e05c5c"/><circle cx="60" cy="74" r="2.2" fill="#e05c5c"/></g>
+        <circle cx="120" cy="44" r="3" fill="#fff" opacity=".8"/><circle cx="140" cy="90" r="4" fill="#fff" opacity=".7"/>
+        <text x="90" y="134" font-size="10" fill="#1c5b8c" text-anchor="middle" font-family="IPAPGothic">水の透明度も向上（朱点鮮明）</text>
+      </svg>
+      <div class="cap">水質改善＋生育促進を確認</div>
+    </div>
   </div>
-  <p class="note">結論：CBチップ投入により、水質改善と生育促進を確認。稚魚の発色（朱点）・活力も良好。</p>
   <div class="foot"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 9</span></div>
 </section>
 
 <!-- 10. 畜産 M5 -->
 <section class="slide">
-  <div class="tag m5">⑤ 畜産モジュール M5</div>
-  <h1 class="title">畜産 ― 臭気課題を「発生源」で断つ</h1>
-  <p class="lead" style="margin-bottom:4mm;">「腐敗」を「発酵」へ切り替える。撒く・覆う対症療法ではなく、還元的環境を保ち発生源から抑制。<strong>4技術を単一窓口で統合運用</strong>（笠岡モデル）。</p>
-  <div class="grid2" style="gap:6mm;">
-    <div class="card amber">
-      <h3>4技術の統合（ワンストップ）</h3>
-      <ul>
-        <li>CBチップ（電子CB農法）― 無電源で還元作用</li>
-        <li>電子発生装置（アルケミア・コネクト）</li>
-        <li>乳酸菌（加藤特殊産業）― 腐敗を発酵へ</li>
-        <li>麹菌 飼料添加（源麹研究所）― 体内から</li>
-      </ul>
+  <span class="tag m5">⑤ 畜産モジュール M5</span>
+  <h1 class="title">畜産 ― 臭気を「発生源」で断つ（笠岡モデル）</h1>
+  <div class="cols">
+    <div>
+      <div class="card amber" style="margin-bottom:4mm;"><h3>4技術を単一窓口で統合運用</h3>
+        <ul><li>CBチップ（無電源で還元作用）</li><li>電子発生装置（アルケミア・コネクト）</li><li>乳酸菌（加藤特殊産業／腐敗を発酵へ）</li><li>麹菌 飼料添加（源麹研究所／体内から）</li></ul></div>
+      <div class="card amber"><h3>実測エビデンス</h3>
+        <p>麹菌の養豚実測：臭気指数 <strong>19.1 → 11.5</strong>（肝付町2016）。ORPで還元作用を確認。</p></div>
     </div>
-    <div class="card amber">
-      <h3>進め方とエビデンス</h3>
-      <p>下流（汚水・堆肥）から小さく実証 → 中流（牛舎）→ 上流（飼料・飲用水）へ段階展開。既存対策を置換せず補完。</p>
-      <p class="note">麹菌の養豚実測：臭気指数 19.1→11.5（肝付町2016）。ORPで還元作用を確認。</p>
+    <div class="illus">
+      <!-- 腐敗→発酵 flow -->
+      <svg width="180" height="150" viewBox="0 0 180 150">
+        <rect x="6" y="20" width="70" height="46" rx="6" fill="#f2dede" stroke="#c05555"/>
+        <text x="41" y="42" font-size="12" fill="#a83b3b" text-anchor="middle" font-family="IPAPGothic">腐敗</text>
+        <text x="41" y="58" font-size="8" fill="#a83b3b" text-anchor="middle" font-family="IPAPGothic">酸化・悪臭</text>
+        <path d="M80 43 h24" stroke="#5c6b64" stroke-width="3" marker-end="url(#ar2)"/>
+        <rect x="106" y="20" width="70" height="46" rx="6" fill="#e0efe4" stroke="#2f8f4e"/>
+        <text x="141" y="42" font-size="12" fill="#1f7a44" text-anchor="middle" font-family="IPAPGothic">発酵</text>
+        <text x="141" y="58" font-size="8" fill="#1f7a44" text-anchor="middle" font-family="IPAPGothic">還元・資源化</text>
+        <!-- steps -->
+        <g font-family="IPAPGothic">
+          <rect x="6" y="88" width="52" height="40" rx="5" fill="#f7efe0" stroke="#c8811a"/>
+          <text x="32" y="104" font-size="8.5" fill="#8a5a12" text-anchor="middle">下流</text><text x="32" y="118" font-size="7.5" fill="#8a5a12" text-anchor="middle">汚水・堆肥</text>
+          <rect x="64" y="88" width="52" height="40" rx="5" fill="#f7efe0" stroke="#c8811a"/>
+          <text x="90" y="104" font-size="8.5" fill="#8a5a12" text-anchor="middle">中流</text><text x="90" y="118" font-size="7.5" fill="#8a5a12" text-anchor="middle">牛舎</text>
+          <rect x="122" y="88" width="52" height="40" rx="5" fill="#f7efe0" stroke="#c8811a"/>
+          <text x="148" y="104" font-size="8.5" fill="#8a5a12" text-anchor="middle">上流</text><text x="148" y="118" font-size="7.5" fill="#8a5a12" text-anchor="middle">飼料・水</text>
+          <path d="M58 108 h6" stroke="#c8811a" stroke-width="2" marker-end="url(#ar3)"/>
+          <path d="M116 108 h6" stroke="#c8811a" stroke-width="2" marker-end="url(#ar3)"/>
+        </g>
+        <defs>
+          <marker id="ar2" markerWidth="9" markerHeight="9" refX="4" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#5c6b64"/></marker>
+          <marker id="ar3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#c8811a"/></marker>
+        </defs>
+      </svg>
+      <div class="cap">小さく始め、発生源へ段階展開</div>
     </div>
   </div>
   <div class="foot"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 10</span></div>
@@ -245,10 +384,9 @@
 
 <!-- 11. 取引先 M1 -->
 <section class="slide">
-  <div class="tag m1">① 取引先モジュール M1</div>
+  <span class="tag m1">① 取引先モジュール M1</span>
   <h1 class="title">パートナー制度・お取引</h1>
-  <div class="card" style="margin-bottom:5mm;">
-    <h3>3層の代理店制度</h3>
+  <div class="card" style="margin-bottom:4mm;">
     <table>
       <tr><th>区分</th><th>想定数</th><th>販売マージン</th><th>役割</th></tr>
       <tr><td>正規代理店（エージェント）</td><td>200社</td><td>20%</td><td>農家・園芸・施設等への販売</td></tr>
@@ -256,18 +394,26 @@
       <tr><td>正規販売店（認定パートナー）</td><td>20,000社</td><td>10%</td><td>エンドユーザーへの販売</td></tr>
     </table>
   </div>
-  <div class="grid2" style="gap:6mm;">
+  <div class="cols" style="align-items:start;">
     <div class="card"><h3>主な商品</h3><p>CBスティック（@600〜300／本）・CBチップ（@540〜270／枚）・イオン化電子発生装置（大型）・プロモーションセット</p></div>
-    <div class="card"><h3>ご契約書類</h3><p>パートナー／エージェント／オルガナイザー各契約書をご用意。隔週Zoom勉強会で導入支援。</p></div>
+    <div class="illus">
+      <svg width="150" height="90" viewBox="0 0 150 90">
+        <polygon points="75,8 128,30 128,66 75,86 22,66 22,30" fill="#efeaf6" stroke="#5a4b8c"/>
+        <text x="75" y="30" font-size="9" fill="#5a4b8c" text-anchor="middle" font-family="IPAPGothic">代理店 200</text>
+        <text x="75" y="50" font-size="9" fill="#5a4b8c" text-anchor="middle" font-family="IPAPGothic">特約店 2,000</text>
+        <text x="75" y="70" font-size="9" fill="#5a4b8c" text-anchor="middle" font-family="IPAPGothic">認定P 20,000</text>
+      </svg>
+      <div class="cap">3層で全国へ展開</div>
+    </div>
   </div>
   <div class="foot"><span>電子CB農法株式会社</span><span>生産現場まるごと提案 ｜ 11</span></div>
 </section>
 
 <!-- 12. お問い合わせ -->
-<section class="slide cover" style="background:linear-gradient(135deg,#155c33,#1f7a44);">
-  <h1 style="color:#fff;font-size:32pt;line-height:1.3;">まずは小さく、現場で。<br>電子の力を、御社の生産現場へ。</h1>
-  <div class="sub" style="margin-top:8mm;">農業・陸上養殖・畜産のいずれからでも実証を開始できます。<br>お取引・実証のご相談を承ります。</div>
-  <div class="who" style="margin-top:14mm;">
+<section class="slide cover" style="background:linear-gradient(135deg,#124d2b,#1f7a44);justify-content:center;">
+  <h1 style="color:#fff;font-size:30pt;line-height:1.3;">まずは小さく、現場で。<br>電子の力を、御社の生産現場へ。</h1>
+  <div class="sub" style="margin-top:6mm;">農業・陸上養殖・畜産のいずれからでも実証を開始できます。お取引・実証のご相談を承ります。</div>
+  <div class="who" style="margin-top:10mm;">
     電子CB農法株式会社　代表取締役社長 山中 俊成<br>
     京都市東山区祇園町北側340 マルトー17ビル501<br>
     TEL 075-600-0479 ／ https://denshi-cb.co.jp/
