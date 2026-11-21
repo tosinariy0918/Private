@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: A4 landscape; margin: 0; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { font-family:'IPAGothic','IPAPGothic',sans-serif; color:#1f2a24; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .slide { width:297mm; height:210mm; padding:16mm 20mm; position:relative; page-break-after:always; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
+  .slide:last-child { page-break-after:auto; }
+  .tag { display:inline-block; font-size:11pt; color:#2f7d5b; font-weight:bold; letter-spacing:.08em; border-left:5px solid #2f7d5b; padding-left:10px; margin-bottom:7mm; }
+  h2 { font-size:26pt; color:#14261d; line-height:1.3; margin-bottom:8mm; }
+  ul { list-style:none; }
+  li { font-size:14.5pt; line-height:1.7; color:#2c352f; margin-bottom:5mm; padding-left:30px; position:relative; }
+  li::before { content:"●"; color:#2f7d5b; position:absolute; left:0; font-size:11pt; top:4px; }
+  li b { color:#14261d; }
+  .foot { position:absolute; left:20mm; right:20mm; bottom:9mm; display:flex; justify-content:space-between; font-size:8.5pt; color:#9aa79f; border-top:1px solid #e3ece7; padding-top:3mm; }
+
+  /* 表紙 */
+  .cover { background:#14261d; color:#eaf3ee; justify-content:center; }
+  .cover .kicker { font-size:12pt; color:#8fd7b4; letter-spacing:.1em; margin-bottom:8mm; }
+  .cover h1 { font-size:40pt; line-height:1.28; color:#fff; margin-bottom:9mm; }
+  .cover h1 span { color:#8fd7b4; }
+  .cover .sub { font-size:16pt; color:#cfe3d8; line-height:1.6; margin-bottom:14mm; }
+  .cover .who { font-size:12pt; color:#b9cfc3; }
+  .cover .msg { margin-top:10mm; display:inline-block; border:1px solid #3f6b57; border-radius:10px; padding:5mm 8mm; font-size:13pt; color:#eaf3ee; background:rgba(143,215,180,.08); }
+
+  /* 3層 */
+  .layers { display:flex; flex-direction:column; gap:5mm; margin-top:2mm; }
+  .layer { border-radius:10px; padding:6mm 8mm; }
+  .layer .lt { font-size:15pt; font-weight:bold; margin-bottom:2mm; }
+  .layer .ld { font-size:12.5pt; line-height:1.6; }
+  .l1 { background:#14261d; color:#fff; }
+  .l1 .lt { color:#8fd7b4; }
+  .l2 { background:#e8f3ec; color:#1f2a24; border:1px solid #cfe3d8; }
+  .l2 .lt { color:#2f7d5b; }
+  .l3 { background:#f6f1e4; color:#1f2a24; border:1px solid #e6d9b8; }
+  .l3 .lt { color:#8a6d2a; }
+
+  /* 2カラム */
+  .cols { display:flex; gap:10mm; }
+  .cols .c { flex:1; background:#fbfdfc; border:1px solid #e3ece7; border-radius:10px; padding:6mm; }
+  .cols .c .ct { font-size:14pt; font-weight:bold; color:#2f7d5b; margin-bottom:3mm; }
+  .cols .c li { font-size:12.5pt; margin-bottom:3mm; }
+
+  /* 統計 */
+  .stats { display:flex; gap:8mm; margin-top:3mm; }
+  .stat { flex:1; background:#f1f7f3; border:1px solid #cfe3d8; border-radius:10px; padding:8mm 6mm; text-align:center; }
+  .stat .num { font-size:34pt; font-weight:bold; color:#2f7d5b; line-height:1; }
+  .stat .lab { font-size:12pt; font-weight:bold; color:#14261d; margin:4mm 0 2mm; }
+  .stat .d { font-size:10pt; color:#5b6b62; line-height:1.5; }
+
+  .lead { font-size:14.5pt; color:#3d4a43; line-height:1.8; margin-bottom:6mm; }
+  .hl { background:#eafaf1; border:1px solid #bfe6cf; border-radius:8px; padding:4mm 6mm; font-size:13pt; color:#14261d; margin-top:4mm; }
+  .hl b { color:#2f7d5b; }
+</style>
+</head>
+<body>
+
+<!-- 1. 表紙 -->
+<section class="slide cover">
+  <div class="kicker">河内長野市長 ご提案</div>
+  <h1>電子の力で、<br>河内長野から始める<span>地域創生</span></h1>
+  <div class="sub">加賀田の農業を主役に、廃校うなぎ養殖・よもぎの郷・福祉・空き家へ広げる<br>持続可能な地域モデル</div>
+  <div class="who">提案主体：電子CB農法株式会社（電子還元作用の特許技術・特許第7444353号）＋連携チーム</div>
+  <div class="msg">「加賀田の農業を起点に、河内長野市を"儲かる持続可能な地域"へ」</div>
+</section>
+
+<!-- 2. 課題認識 -->
+<section class="slide">
+  <span class="tag">01　課題認識 ― 市長と目線を合わせる</span>
+  <h2>いま、河内長野が向き合う3つの課題</h2>
+  <ul>
+    <li><b>農業の担い手不足</b>　高齢化・後継者不足で農業従事者が減少し、耕作放棄地が年々拡大。地域の農地・景観が失われつつあります。</li>
+    <li><b>遊休資産の増加</b>　空き家・廃校など使われない資産が増え、地域コミュニティの活力低下につながっています。</li>
+    <li><b>自走する地域モデルの必要性</b>　「補助金頼み」から脱却し、地域が自ら稼ぎ、利益を循環させる持続可能な仕組みが求められています。</li>
+  </ul>
+  <div class="foot"><span>電子CB農法株式会社</span><span>02</span></div>
+</section>
+
+<!-- 3. 全体像 -->
+<section class="slide">
+  <span class="tag">02　ご提案の全体像</span>
+  <h2>3層構造で、地域を変える</h2>
+  <div class="layers">
+    <div class="layer l1"><div class="lt">【主役】農業</div><div class="ld">加賀田で電子CB農法を実証。土壌改善のエビデンスをもとに展開します。</div></div>
+    <div class="layer l2"><div class="lt">【広がり】地域産業</div><div class="ld">廃校うなぎ養殖・よもぎの郷ブランド・わさび・空き家活用が、農業の成果を活かして広がります。</div></div>
+    <div class="layer l3"><div class="lt">【受け皿】地域に還す</div><div class="ld">住民出資「みんなの株式会社」で、地域ブランドの利益を住民・地域へ循環させます。</div></div>
+  </div>
+  <div class="foot"><span>電子CB農法株式会社</span><span>03</span></div>
+</section>
+
+<!-- 4. 主役：加賀田の農業 -->
+<section class="slide">
+  <span class="tag">03　【主役】加賀田の農業プロジェクト（優先第1位）</span>
+  <h2>減農薬・減肥料でも、生産量を維持する</h2>
+  <ul>
+    <li>電子CB農法（特許技術）で、<b>減農薬・減肥料でも生産量を維持</b>し、環境負荷を大幅に低減</li>
+    <li>まず<b>加賀田に実証区</b>を設け、数値で効果を証明</li>
+    <li>第三者機関（SDB研）の土壌分析で「<b>土の免疫力（抑止力）</b>」を科学的に検証</li>
+  </ul>
+  <div class="hl">土壌の抑止力：<b>7.7 → 27.6（約3.6倍）</b>のエビデンスを取得済み</div>
+  <div class="foot"><span>電子CB農法株式会社</span><span>04</span></div>
+</section>
+
+<!-- 5. 目玉：廃校うなぎ養殖 -->
+<section class="slide">
+  <span class="tag">04　【目玉】廃校を活用した「水槽型うなぎ陸上養殖」</span>
+  <h2>教室が、うなぎの養殖場になる</h2>
+  <div class="cols">
+    <div class="c"><div class="ct">廃校の教室を活用</div><ul><li>教室単位で養殖<b>水槽をモジュール展開</b></li><li>プール・体育館も有効活用</li></ul></div>
+    <div class="c"><div class="ct">電子CB技術で水質管理</div><ul><li>電子還元作用で<b>水環境を安定化</b></li><li>うなぎの健全な生育を支援</li></ul></div>
+  </div>
+  <div class="cols" style="margin-top:6mm;">
+    <div class="c"><div class="ct">グレイス㈱と連携</div><ul><li>宮川社長の事業ノウハウを導入</li><li>実績ある養殖技術で<b>収益化を加速</b></li></ul></div>
+    <div class="c"><div class="ct">河内長野産うなぎ</div><ul><li>遊休資産を<b>新特産品・雇用創出</b>の場へ</li><li>地域ブランドを確立</li></ul></div>
+  </div>
+  <div class="foot"><span>電子CB農法株式会社</span><span>05</span></div>
+</section>
+
+<!-- 6. 広がり -->
+<section class="slide">
+  <span class="tag">05　【広がり】その他の地域展開</span>
+  <h2>農業の成果を、地域全体へ</h2>
+  <div class="cols">
+    <div class="c"><div class="ct">わさび栽培</div><ul><li>清冽な水資源を活かした高品質わさび</li><li>地域ブランド商品で付加価値を高める</li></ul></div>
+    <div class="c"><div class="ct">空き家活用</div><ul><li>移住・交流拠点として再生</li><li>関係人口を呼び込む（農業チームとは分離推進）</li></ul></div>
+    <div class="c"><div class="ct">福祉との連携</div><ul><li>農作業・養殖管理を通じた就労支援</li><li>農産物・よもぎで健康づくりプログラム</li></ul></div>
+  </div>
+  <div class="foot"><span>電子CB農法株式会社</span><span>06</span></div>
+</section>
+
+<!-- 7. よもぎの郷 -->
+<section class="slide">
+  <span class="tag">06　【地域ブランド】よもぎの郷・河内長野</span>
+  <h2>「よもぎ」を、河内長野の名産品に</h2>
+  <div class="lead">6次産業化で、多彩な商品へ展開します。</div>
+  <div class="cols">
+    <div class="c"><div class="ct">食品</div><ul><li>よもぎ茶・よもぎ餅</li></ul></div>
+    <div class="c"><div class="ct">健康・美容</div><ul><li>よもぎ蒸し・化粧品原料</li></ul></div>
+    <div class="c"><div class="ct">品質向上</div><ul><li>電子CB農法でよもぎの品質・生育を高める</li></ul></div>
+  </div>
+  <div class="hl">「<b>よもぎの郷・河内長野</b>」として、健康と癒しのまちづくりと連動した広域ブランドを目指します。</div>
+  <div class="foot"><span>電子CB農法株式会社</span><span>07</span></div>
+</section>
+
+<!-- 8. 受け皿 -->
+<section class="slide">
+  <span class="tag">07　【受け皿】地域に利益を還す仕組み</span>
+  <h2>稼いだ利益を、地域と住民へ循環させる</h2>
+  <ul>
+    <li><b>地域株式会社構想</b>　住民出資「みんなの株式会社」で、地域ブランドの利益を住民・地域へ循環</li>
+    <li><b>地域ブランドで出口をつくる</b>　「河内長野産うなぎ」「よもぎの郷」「わさび」を収益の柱に</li>
+    <li><b>戦略的な政策活用</b>　岩手の農業者グループとの広域連携に加え、補助金・国の農業政策も積極的に取り込む</li>
+  </ul>
+  <div class="foot"><span>電子CB農法株式会社</span><span>08</span></div>
+</section>
+
+<!-- 9. 期待効果 -->
+<section class="slide">
+  <span class="tag">08　期待効果 ― 議会・市民に説明できる言葉で</span>
+  <h2>数字と実感で語れる、3つの成果</h2>
+  <div class="stats">
+    <div class="stat"><div class="num">3.6倍</div><div class="lab">土壌免疫力の向上</div><div class="d">第三者機関による実測エビデンス（抑止力 7.7→27.6）</div></div>
+    <div class="stat"><div class="num">3大</div><div class="lab">地域ブランド創出</div><div class="d">「河内長野産うなぎ」「よもぎの郷」「わさび」で発信力・関係人口を増加</div></div>
+    <div class="stat"><div class="num">多数</div><div class="lab">遊休資産の再生</div><div class="d">廃校・耕作放棄地・空き家を収益資産へ転換し、雇用を創出</div></div>
+  </div>
+  <div class="hl">産官学・自治体連携のモデルケースとして、他自治体へ横展開も可能な<b>再現性の高い取り組み</b>です。</div>
+  <div class="foot"><span>電子CB農法株式会社</span><span>09</span></div>
+</section>
+
+<!-- 10. お願い・ロードマップ・結び -->
+<section class="slide">
+  <span class="tag">09　市へのお願い ／ ロードマップ ／ 結び</span>
+  <h2>まずは、加賀田とうなぎ、そしてよもぎの一歩から</h2>
+  <div class="cols">
+    <div class="c"><div class="ct">河内長野市へのお願い</div><ul><li>実証フィールド（加賀田等）・廃校のご紹介と橋渡し</li><li>農林・産業・福祉・教育財産・移住定住の連携窓口</li><li>広報面での共同発信</li></ul></div>
+    <div class="c"><div class="ct">ロードマップ</div><ul><li>STEP1：加賀田で農業実証＋土壌測定</li><li>STEP2：廃校で水槽鰻・よもぎ・わさびの試験</li><li>STEP3：会社設立・ブランド化・販路展開</li></ul></div>
+  </div>
+  <div class="hl">「世のため、人のため、そして未来のために」――河内長野から、日本、そして世界へ。&nbsp;&nbsp;― <b>電子CB農法株式会社</b></div>
+  <div class="foot"><span>電子CB農法株式会社</span><span>10</span></div>
+</section>
+
+</body>
+</html>
